@@ -61,7 +61,7 @@
                                 <a href="#"><i class="fas fa-mobile-alt"></i> +02456 054546</a>
                                 <a href="wishlist.html"><i class="far fa-heart"></i> Wishlist</a>
                                 <c:if test="${sessionScope.acc == null}">
-                                <a href="login"><i class="fas fa-user"></i> Login / Register</a>
+                                <a href="login.html"><i class="fas fa-user"></i> Login / Register</a>
                                 </c:if>
                                 <c:if test="${sessionScope.acc != null}">
                                     <a href="logout"><i class="fas fa-user"></i>${sessionScope.acc.username}<i class="fa fa-angle-down"></i></a>
