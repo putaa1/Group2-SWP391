@@ -88,7 +88,7 @@
                                     <select class="form-select">
                                         <option selected>All Categories</option>
                                         <option value="1">Mobile</option>
-                                        <option value="2">LifeStyle</option>
+                                        <option value="2">Style</option>
                                         <option value="3">Leptop</option>
                                         <option value="4">Cell Phones</option>
                                         <option value="5">Game & Consoles</option>
