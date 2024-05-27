@@ -7,7 +7,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>List Product</title>
+        <title>List Category</title>
         <link rel="icon" href="assets/img/icon.png" type="image/gif" sizes="16x16">
         <link rel="icon" href="assets/img/icon.png" type="image/gif" sizes="18x18">
         <link rel="icon" href="assets/img/icon.png" type="image/gif" sizes="20x20">
@@ -78,7 +78,7 @@
                         <!-- Search Bar -->
 
                         <!-- MiniCart -->
-                        
+
                     </div>
                 </div>
             </div>
@@ -172,7 +172,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col"></div>
-       
+
                         <div class="col">
 
                         </div>
@@ -187,23 +187,23 @@
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>
-                                <th scope="col">Product Name</th>
-               
+                                <th scope="col">Category Name</th>
+
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach items="${cate}" var="c">
+                            <c:forEach items="${requestScope.listC}" var="c">
                                 <tr>
                                     <td>${c.cid}</td>
                                     <td>${c.name}</td>
 
-                                
-                                    <td><li class="list-inline-item">
-                                <a href="deleteproduct?product_id=${p.product_id}" onclick="return checkdelete()"><button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button></a>
+
+                             <td><li class="list-inline-item">
+                                <a href="deleteCate?cid=${c.cid}" onclick="return checkdelete()"><button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button></a>
                             </li>
                             <li class="list-inline-item">
-                                <a href="updateproduct?product_id=${p.product_id}"><button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button></a>
+                                <a href="updateCate?cidUpdate=${c.cid}"><button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button></a>
                             </li>
                             </td>
                             </tr>
@@ -218,16 +218,18 @@
                 <div class="col-12 mb-30">
                     <div class="page-pagination text-center">
                         <ul>
-                            <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
-                                    <c:forEach begin="1" end="${endPage}" var="i">
-                                <li><a href="listproduct?index=${i}">${i}</a></li>
+                            <!--                            <li><a href="#"><i class="fa fa-angle-left"></i></a></li>-->
 
-                            </c:forEach>
-                            <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                            <c:forEach begin="1" end="${endPage}" var="i">
+                                <li><a href="listCate?index=${i}">${i}</a></li>
+                                </c:forEach>
+                            <!--                            <li><a href="#"><i class="fa fa-angle-right"></i></a></li>-->
                         </ul>
                     </div>
                 </div>
             </div>
+
+
 
 
         </div>
@@ -359,7 +361,7 @@
         <script src="assets/js/mobile-menu.js"></script>
         <script>
                                     function checkdelete() {
-                                        return confirm("Are you sure want to delete?");
+                                        return confirm("Deleting a category means deleting all products in this category. Are you sure want to delete?");
                                     }
                                     function checkinput() {
                                         var search = document.getElementById("search").value;
@@ -367,7 +369,7 @@
                                             return confirm("Please fill in blank");
                                         }
                                     }
-                                    function click(category_id){
+                                    function click(category_id) {
                                         window.location.href = 'bycate?category_id=' + category_id;
                                     }
         </script>

@@ -7,7 +7,34 @@ body {
   font-family: 'Roboto', sans-serif;
   font-weight: normal;
   font-style: normal; }
+ .page-pagination ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
 
+    .page-pagination ul li {
+        display: inline;
+        margin: 0 2px;
+    }
+
+    .page-pagination ul li a {
+        display: block;
+        padding: 5px 10px;
+        text-decoration: none;
+        border: 1px solid #ccc;
+        color: #333;
+    }
+
+    .page-pagination ul li a.active {
+        background-color: #007bff;
+        color: #fff;
+        border-color: #007bff;
+    }
+
+    .page-pagination ul li a:hover {
+        background-color: #f0f0f0;
+    }
 * {
   margin: 0;
   padding: 0; }

@@ -4,9 +4,33 @@
         <servlet-name>newsList</servlet-name>
         <servlet-class>controller.news.newsList</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>listCate</servlet-name>
+        <servlet-class>controller.Category.listCate</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>deleteCate</servlet-name>
+        <servlet-class>controller.Category.deleteCate</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>updateCate</servlet-name>
+        <servlet-class>controller.Category.updateCate</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>newsList</servlet-name>
         <url-pattern>/newsList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>listCate</servlet-name>
+        <url-pattern>/listCate</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>deleteCate</servlet-name>
+        <url-pattern>/deleteCate</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>updateCate</servlet-name>
+        <url-pattern>/updateCate</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
