@@ -139,7 +139,7 @@ public class CategoryDAO extends DBContext {
 
         CategoryDAO cd = new CategoryDAO();
        
-        cd.updateCate(3, "12345");
+        cd.addCategory("12345");
         ArrayList<Category> list = cd.getAllCate();
 
         for (Category category : list) {

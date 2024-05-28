@@ -59,21 +59,20 @@ public class listCate extends HttpServlet {
                 CategoryDAO cd = new CategoryDAO();
         List<Category> list = cd.getAllCate();
         request.setAttribute("listC", list);
-//         String indexPage = request.getParameter("index");
-//        if(indexPage ==null){
-//            indexPage="1";
-//        }
-//        CategoryDAO cd = new CategoryDAO();
-//        int index1 = Integer.parseInt(indexPage);
-//        int count = cd.count();
-//        int endPage = count/5;
-//        if(endPage%5!=0){
-//            endPage++;
-//        }
-//               request.setAttribute("endPage", endPage);
-//        List<Category> listC = cd.pagging(index1);
-//        request.setAttribute("listC", listC);
-// 
+         String indexPage = request.getParameter("index");
+        if(indexPage ==null){
+            indexPage="1";
+        }
+        int index1 = Integer.parseInt(indexPage);
+        int count = cd.count();
+        int endPage = count/5;
+        if(endPage%5!=0){
+            endPage++;
+        }
+               request.setAttribute("endPage", endPage);
+        List<Category> listC = cd.pagging(index1);
+        request.setAttribute("listC", listC);
+ 
         request.getRequestDispatcher("category_brand/showCate.jsp").forward(request, response);
     } 
 

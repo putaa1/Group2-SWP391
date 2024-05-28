@@ -33,28 +33,38 @@
         <div class="container col-md-5">
             <div class="card">
                 <div class="card-body">
-                    <form action="addCate" method="post" >
+                    <form action="addCate" method="get" >
 
-                        <fieldset class="form-group">
-                            <label>Category ID</label> 
-                            <input type="text" value="" class="form-control"
-                                   name="category_name" id="name" required>
-                        </fieldset>
                         <fieldset class="form-group">
                             <label>Category Name</label> 
                             <input type="text" value="" class="form-control"
-                                   name="category_name" id="name" required>
+                                   name="addCate_name" id="name" required>
                         </fieldset>
 
                         <div class="text-right">
 
-                            <button type="submit" value="Update"  class="btn btn-success">Save</button>
+                            <button type="submit" onclick="myFunction()" class="btn btn-success">Add</button>
                         </div>
 
                     </form>
                 </div>
             </div>
         </div>
+        <script>
+            function myFunction() {
+                const inpObj = document.getElementById("name");
 
+                inpObj.setCustomValidity("");
+
+                const valueLength = inpObj.value.length;
+
+                if (valueLength < 1) {
+                    inpObj.setCustomValidity("Text is too short. Please enter between 1 and 50 characters.");
+                } else if (valueLength > 50) {
+                    inpObj.setCustomValidity("Text is too long. Please enter between 1 and 50 characters.");
+                }
+
+            }
+        </script>
     </body>
 </html>
