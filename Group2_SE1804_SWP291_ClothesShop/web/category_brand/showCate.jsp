@@ -368,6 +368,7 @@
                                         if (search === "") {
                                             return confirm("Please fill in blank");
                                         }
+                                        
                                     }
                                     function click(category_id) {
                                         window.location.href = 'bycate?category_id=' + category_id;

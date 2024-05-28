@@ -3,13 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Group2-SWP391/Group2_SE1804_SWP291_ClothesShop/web/category_brand/createCate.jsp</file>
             <file>file:/D:/Group2-SWP391/Group2_SE1804_SWP291_ClothesShop/web/category_brand/showCate.jsp</file>
-            <file>file:/D:/Group2-SWP391/Group2_SE1804_SWP291_ClothesShop/src/java/context/CategoryDAO.java</file>
+            <file>file:/D:/Group2-SWP391/Group2_SE1804_SWP291_ClothesShop/src/java/controller/Category/deleteCate.java</file>
             <file>file:/D:/Group2-SWP391/Group2_SE1804_SWP291_ClothesShop/web/category_brand/updateCate.jsp</file>
             <file>file:/D:/Group2-SWP391/Group2_SE1804_SWP291_ClothesShop/src/java/controller/Category/updateCate.java</file>
+            <file>file:/D:/Group2-SWP391/Group2_SE1804_SWP291_ClothesShop/web/blog.html</file>
             <file>file:/D:/Group2-SWP391/Group2_SE1804_SWP291_ClothesShop/src/java/controller/Category/listCate.java</file>
-            <file>file:/D:/Group2-SWP391/Group2_SE1804_SWP291_ClothesShop/web/WEB-INF/web.xml</file>
+            <file>file:/D:/Group2-SWP391/Group2_SE1804_SWP291_ClothesShop/web/category_brand/header.jsp</file>
+            <file>file:/D:/Group2-SWP391/Group2_SE1804_SWP291_ClothesShop/web/category_brand/addCate.jsp</file>
+            <file>file:/D:/Group2-SWP391/Group2_SE1804_SWP291_ClothesShop/web/category_brand/testhtml.html</file>
+            <file>file:/D:/Group2-SWP391/Group2_SE1804_SWP291_ClothesShop/src/java/controller/Category/addCate.java</file>
+            <file>file:/D:/Group2-SWP391/Group2_SE1804_SWP291_ClothesShop/web/category_brand/newjsp.jsp</file>
         </group>
     </open-files>
 </project-private>

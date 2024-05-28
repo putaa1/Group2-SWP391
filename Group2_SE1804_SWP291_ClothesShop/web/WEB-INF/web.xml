@@ -16,6 +16,10 @@
         <servlet-name>updateCate</servlet-name>
         <servlet-class>controller.Category.updateCate</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>addCate</servlet-name>
+        <servlet-class>controller.Category.addCate</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>newsList</servlet-name>
         <url-pattern>/newsList</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>updateCate</servlet-name>
         <url-pattern>/updateCate</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addCate</servlet-name>
+        <url-pattern>/addCate</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

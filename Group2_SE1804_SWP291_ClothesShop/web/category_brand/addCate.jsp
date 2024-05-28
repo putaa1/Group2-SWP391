@@ -1,6 +1,6 @@
 <%-- 
-    Document   : updateCate
-    Created on : May 26, 2024, 9:07:13 PM
+    Document   : addCate
+    Created on : May 27, 2024, 10:39:42 PM
     Author     : chien
 --%>
 
@@ -33,49 +33,28 @@
         <div class="container col-md-5">
             <div class="card">
                 <div class="card-body">
-                    <form action="updateCate" method="post" >
+                    <form action="addCate" method="post" >
+
                         <fieldset class="form-group">
-                            <div> <label>Category ID</label></div>  
-                            <input readonly="" name="cid" value="${cate.cid}"/>
+                            <label>Category ID</label> 
+                            <input type="text" value="" class="form-control"
+                                   name="category_name" id="name" required>
                         </fieldset>
                         <fieldset class="form-group">
                             <label>Category Name</label> 
-                            <input type="text" value="${cate.name}" class="form-control"
-                                   name="category_name" id="name" required oninvalid="this.setCustomValidity('Please Enter valid email')">
+                            <input type="text" value="" class="form-control"
+                                   name="category_name" id="name" required>
                         </fieldset>
 
                         <div class="text-right">
 
-                            <button type="submit" value="Update" onclick="return checkInput()" class="btn btn-success">Save</button>
+                            <button type="submit" value="Update"  class="btn btn-success">Save</button>
                         </div>
 
                     </form>
                 </div>
             </div>
         </div>
-        <script>
-            function checkinput() {
-                // Lấy giá trị đầu vào
-                var categoryName = document.getElementsByName("category_name")[0].value;
 
-                // Kiểm tra không bỏ trống
-                if (categoryName.trim() === "") {
-                    alert("Tên Danh Mục là bắt buộc.");
-                    return false;
-                }
-
-                // Kiểm tra không quá 10 ký tự
-                if (categoryName.length > 10) {
-                    alert("Tên Danh Mục không được quá 10 ký tự.");
-                    return false;
-                }
-
-                // Nếu tất cả đều hợp lệ, trả về true
-                return true;
-            }
-
-
-    
-        </script>
     </body>
 </html>
