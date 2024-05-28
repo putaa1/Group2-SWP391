@@ -25,7 +25,7 @@
 
                 <ul class="navbar-nav">
                     <li><a href="<%=request.getContextPath()%>/listCate"
-                           class="nav-link">Product</a></li>
+                           class="nav-link">Category</a></li>
                 </ul>
             </nav>
         </header>
@@ -33,7 +33,7 @@
         <div class="container col-md-5">
             <div class="card">
                 <div class="card-body">
-                    <form action="updateCate" method="post" >
+                    <form action="updateCate" method="post"  >
                         <fieldset class="form-group">
                             <div> <label>Category ID</label></div>  
                             <input readonly="" name="cid" value="${cate.cid}"/>
@@ -41,12 +41,12 @@
                         <fieldset class="form-group">
                             <label>Category Name</label> 
                             <input type="text" value="${cate.name}" class="form-control"
-                                   name="category_name" id="name" required oninvalid="this.setCustomValidity('Please Enter valid email')">
+                                   name="category_name"  id="name" required >
                         </fieldset>
 
                         <div class="text-right">
 
-                            <button type="submit" value="Update" onclick="return checkInput()" class="btn btn-success">Save</button>
+                            <button type="submit" value="Update" onclick="myFunction()" class="btn btn-success">Save</button>
                         </div>
 
                     </form>
@@ -54,28 +54,20 @@
             </div>
         </div>
         <script>
-            function checkinput() {
-                // Lấy giá trị đầu vào
-                var categoryName = document.getElementsByName("category_name")[0].value;
+            function myFunction() {
+                const inpObj = document.getElementById("name");
 
-                // Kiểm tra không bỏ trống
-                if (categoryName.trim() === "") {
-                    alert("Tên Danh Mục là bắt buộc.");
-                    return false;
+                inpObj.setCustomValidity("");
+
+                const valueLength = inpObj.value.length;
+
+                if (valueLength < 1) {
+                    inpObj.setCustomValidity("Text is too short. Please enter between 1 and 50 characters.");
+                } else if (valueLength > 50) {
+                    inpObj.setCustomValidity("Text is too long. Please enter between 1 and 50 characters.");
                 }
 
-                // Kiểm tra không quá 10 ký tự
-                if (categoryName.length > 10) {
-                    alert("Tên Danh Mục không được quá 10 ký tự.");
-                    return false;
-                }
-
-                // Nếu tất cả đều hợp lệ, trả về true
-                return true;
             }
-
-
-    
         </script>
     </body>
 </html>
