@@ -17,17 +17,31 @@ public class listproduct extends HttpServlet {
 
         // Get the page index from the request, default to 1 if not provided
         int pageIndex = 1;
+        int pageSize = 4; // Define the page size
         if (request.getParameter("page") != null) {
             pageIndex = Integer.parseInt(request.getParameter("page"));
         }
 
-        // Get the paginated list of products from the DAO
+        String search = request.getParameter("search");
         ProductDAO productDAO = new ProductDAO();
-        ArrayList<Product> products = productDAO.pagging(pageIndex);
+        ArrayList<Product> products;
+        int totalProducts;
 
-        // Set the products and page index as request attributes
+        if (search != null && !search.trim().isEmpty()) {
+            products = productDAO.searchByName(search, pageIndex, pageSize);
+            totalProducts = productDAO.countSearchResults(search);
+        } else {
+            products = productDAO.pagging(pageIndex, pageSize);
+            totalProducts = productDAO.count();
+        }
+
+        int totalPages = (int) Math.ceil((double) totalProducts / pageSize);
+
+        // Set the products, page index, total pages, and search query as request attributes
         request.setAttribute("products", products);
         request.setAttribute("pageIndex", pageIndex);
+        request.setAttribute("totalPages", totalPages);
+        request.setAttribute("search", search);
 
         // Forward to the JSP page for rendering
         request.getRequestDispatcher("product/productList.jsp").forward(request, response);
@@ -47,8 +61,6 @@ public class listproduct extends HttpServlet {
 
     @Override
     public String getServletInfo() {
-
         return "Short description";
-    }// </editor-fold>
-   
+    }
 }
