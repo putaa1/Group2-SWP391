@@ -429,7 +429,14 @@
 							<div class="page-pagination text-center">
 								<ul>
                                                                     <c:forEach begin="1" end = "${pages}" var = "i">
-                                                                        <li><a href="newsList?index=${i}">${i}</a></li>
+                                                                        <li> 
+                                                                            <c:if test="${not empty param.search}">
+                                                                                <a href="newsList?index=${i}&search=${param.search}">${i}</a>
+                                                                            </c:if>
+                                                                            <c:if test="${empty param.search}">
+                                                                                <a href="newsList?index=${i}">${i}</a>
+                                                                            </c:if>
+                                                                        </li>
                                                                     </c:forEach>
 								<!--	<li><a href="#"><i class="fa fa-angle-left"></i></a></li>
 									<li><a href="#">1</a></li>
@@ -448,10 +455,10 @@
 					<!-- Single -->
 					<div class="sidebar-widgets">
 						<h4 class="title">Search</h4>
-						<form action="#">
-							<input type="search" name="search" placeholder="Search Here..">
-							<button type="submit"><i class="fas fa-search"></i></button>
-						</form>
+						<form action="newsList" method="get">
+                                                    <input type="search" name="search" placeholder="Search Here..">
+                                                    <button type="submit"><i class="fas fa-search"></i></button>
+                                                </form>
 					</div>
 					<!-- Single -->
 					<div class="sidebar-widgets">
