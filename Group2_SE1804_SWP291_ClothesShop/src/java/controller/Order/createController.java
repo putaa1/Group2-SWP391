@@ -31,7 +31,7 @@ public class createController extends HttpServlet {
         String orderDate = req.getParameter("orderDate");
         int totalPrice = Integer.parseInt(req.getParameter("totalPrice"));
         String address = req.getParameter("address");
-        int status = Integer.parseInt(req.getParameter("status"));
+        String status = req.getParameter("status");
         int cartid = Integer.parseInt(req.getParameter("cartid"));
 
         Order order = new Order();

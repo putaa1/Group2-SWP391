@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
  * @author djxjs
  */
 @WebServlet(name="CheckOut", urlPatterns={"/CheckOut"})
-public class CheckOut extends HttpServlet {
+public class CheckOutController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
