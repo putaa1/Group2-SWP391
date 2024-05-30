@@ -1,54 +1,53 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
-
 package controller.Order;
 
-
 import context.OrderDAO;
-import model.Order;
-
+import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
-@WebServlet(name = "CreateOrderServlet", urlPatterns = {"/orders/create"})
-public class createController extends HttpServlet {
+public class addOrder extends HttpServlet {
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        req.getRequestDispatcher("/order/create.jsp").forward(req, resp);
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet addOrder</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet addOrder at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String orderDate = req.getParameter("orderDate");
-        int totalPrice = Integer.parseInt(req.getParameter("totalPrice"));
-        String address = req.getParameter("address");
-        int status = Integer.parseInt(req.getParameter("status"));
-        int cartid = Integer.parseInt(req.getParameter("cartid"));
+        String orderDate = request.getParameter("orderDate");
+        int totalPrice = Integer.parseInt(request.getParameter("totalPrice"));
+        String address = request.getParameter("address");
+        int status = Integer.parseInt(request.getParameter("status"));
+        int cartid = Integer.parseInt(request.getParameter("cartid"));
+        
+        OrderDAO od = new OrderDAO();
+        od.addOrder(orderDate, totalPrice, address, status, cartid);
+        request.getRequestDispatcher("listOrder").forward(request, response);
+    }
 
-        Order order = new Order();
-        order.setOrderDate(orderDate);
-        order.setTotalPrice(totalPrice);
-        order.setAddress(address);
-        order.setStatus(status);
-        order.setCartid(cartid);
-
-        OrderDAO orderDAO = new OrderDAO();
-        orderDAO.createOrder(order);
-
-        resp.sendRedirect(req.getContextPath() + "/orders");
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 }

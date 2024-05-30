@@ -8,8 +8,6 @@ package controller.Order;
 import context.OrderDAO;
 import model.Order;
 
-import context.OrderDAO;
-import model.Order;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
