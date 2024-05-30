@@ -54,6 +54,9 @@ public class listproduct extends HttpServlet {
         List<Brand> brands = productDAO.getAllBrands();
         List<Gender> genders = productDAO.getAllGenders();
 
+        // Calculate the maximum price
+        double maxPrice = products.stream().mapToDouble(Product::getPrice).max().orElse(0.0);
+
         // Set lists and other attributes
         request.setAttribute("products", products);
         request.setAttribute("categories", categories);
@@ -67,6 +70,7 @@ public class listproduct extends HttpServlet {
         request.setAttribute("gender", gender);
         request.setAttribute("priceFrom", priceFromStr);
         request.setAttribute("priceTo", priceToStr);
+        request.setAttribute("maxPrice", maxPrice); // Pass the maxPrice to the JSP
 
         request.getRequestDispatcher("product/productList.jsp").forward(request, response);
     }
