@@ -171,8 +171,31 @@
             <div class="title text-center">
                 <div class="container">
                     <div class="row">
-                        <div class="col"></div>
+                        <div class="col">
 
+                        </div>
+                        <div class="col-6">
+
+
+
+                            <div class="form-group row">
+
+                                <form action="searchCate" method="get">
+
+                                    <div class="input-group">
+                                        <div class="form-outline">
+                                            <input type="search" name="searchCate" class="form-control" placeholder="Search category by name heres..."  />
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
                         <div class="col">
 
                         </div>
@@ -199,7 +222,7 @@
                                     <td>${c.name}</td>
 
 
-                             <td><li class="list-inline-item">
+                                    <td><li class="list-inline-item">
                                 <a href="deleteCate?cid=${c.cid}" onclick="return checkdelete()"><button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button></a>
                             </li>
                             <li class="list-inline-item">
@@ -217,14 +240,25 @@
             <div class="row">
                 <div class="col-12 mb-30">
                     <div class="page-pagination text-center">
-                        <ul>
-                            <!--                            <li><a href="#"><i class="fa fa-angle-left"></i></a></li>-->
 
-                            <c:forEach begin="1" end="${endPage}" var="i">
-                                <li><a href="listCate?index=${i}">${i}</a></li>
-                                </c:forEach>
-                            <!--                            <li><a href="#"><i class="fa fa-angle-right"></i></a></li>-->
+                        <ul>
+
+                            <c:forEach begin="1" end="${requestScope.endPage}" var="i">
+                                <li>
+                                    <c:choose>
+                                        <c:when test="${empty param.searchCate}">
+                                            <a href="listCate?index=${i}">${i}</a>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <a href="searchCate?index=${i}&searchCate=${param.searchCate}">${i}</a>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </li>
+                            </c:forEach>
+
+
                         </ul>
+
                     </div>
                 </div>
             </div>
@@ -368,7 +402,7 @@
                                         if (search === "") {
                                             return confirm("Please fill in blank");
                                         }
-                                        
+
                                     }
                                     function click(category_id) {
                                         window.location.href = 'bycate?category_id=' + category_id;

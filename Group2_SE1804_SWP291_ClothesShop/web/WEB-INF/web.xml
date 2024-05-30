@@ -20,6 +20,10 @@
         <servlet-name>addCate</servlet-name>
         <servlet-class>controller.Category.addCate</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>searchCate</servlet-name>
+        <servlet-class>controller.Category.searchCate</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>newsList</servlet-name>
         <url-pattern>/newsList</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>addCate</servlet-name>
         <url-pattern>/addCate</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>searchCate</servlet-name>
+        <url-pattern>/searchCate</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -18,6 +18,27 @@ import java.util.logging.Logger;
  */
 public class CategoryDAO extends DBContext {
 
+    public ArrayList<Category> search(String key, int index) {
+        ArrayList<Category> list = new ArrayList<>();
+        String sql = "SELECT * from category c where c.name like '%" + key + "%'"
+                + "ORDER BY cid\n"
+                + "OFFSET ? ROWS\n"
+                + "FETCH NEXT 5 ROWS ONLY;";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, (index - 1) * 5);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                list.add(new Category(rs.getInt(1), rs.getString(2)));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+
     public ArrayList<Category> pagging(int index) {
         ArrayList<Category> cate = new ArrayList<>();
         try {
@@ -35,11 +56,10 @@ public class CategoryDAO extends DBContext {
         }
         return cate;
     }
-    
 
     public int count() {
         try {
-            String sql = "select count * from category";
+            String sql = "select count (*) from category";
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
@@ -138,12 +158,11 @@ public class CategoryDAO extends DBContext {
     public static void main(String[] args) {
 
         CategoryDAO cd = new CategoryDAO();
-       
-        cd.addCategory("12345");
-        ArrayList<Category> list = cd.getAllCate();
+
+        ArrayList<Category> list = cd.search("",2);
 
         for (Category category : list) {
-            System.out.println(category.getName()+", "+ category.getCid());
+            System.out.println(category.getName() + ", " + category.getCid());
         }
 
     }
