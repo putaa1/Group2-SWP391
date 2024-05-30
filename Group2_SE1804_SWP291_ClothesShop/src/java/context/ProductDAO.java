@@ -283,4 +283,203 @@ public class ProductDAO extends DBContext {
         return 0;
     }
 
+    public ArrayList<Product> paggingWithFilters(String category, String brand, String gender, Double priceFrom, Double priceTo, int pageIndex, int pageSize) {
+        ArrayList<Product> products = new ArrayList<>();
+        try {
+            StringBuilder sql = new StringBuilder("SELECT * FROM product WHERE 1=1");
+            if (category != null && !category.isEmpty()) {
+                sql.append(" AND cid = ?");
+            }
+            if (brand != null && !brand.isEmpty()) {
+                sql.append(" AND bid = ?");
+            }
+            if (gender != null && !gender.isEmpty()) {
+                sql.append(" AND gid = ?");
+            }
+            if (priceFrom != null) {
+                sql.append(" AND price >= ?");
+            }
+            if (priceTo != null) {
+                sql.append(" AND price <= ?");
+            }
+            sql.append(" ORDER BY pid OFFSET ? ROWS FETCH NEXT ? ROWS ONLY;");
+
+            PreparedStatement stm = connection.prepareStatement(sql.toString());
+            int paramIndex = 1;
+            if (category != null && !category.isEmpty()) {
+                stm.setInt(paramIndex++, Integer.parseInt(category));
+            }
+            if (brand != null && !brand.isEmpty()) {
+                stm.setInt(paramIndex++, Integer.parseInt(brand));
+            }
+            if (gender != null && !gender.isEmpty()) {
+                stm.setInt(paramIndex++, Integer.parseInt(gender));
+            }
+            if (priceFrom != null) {
+                stm.setDouble(paramIndex++, priceFrom);
+            }
+            if (priceTo != null) {
+                stm.setDouble(paramIndex++, priceTo);
+            }
+            stm.setInt(paramIndex++, (pageIndex - 1) * pageSize);
+            stm.setInt(paramIndex, pageSize);
+
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Product product = extractProduct(rs);
+                products.add(product);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return products;
+    }
+
+    public int countWithFilters(String category, String brand, String gender, Double priceFrom, Double priceTo) {
+        try {
+            StringBuilder sql = new StringBuilder("SELECT COUNT(*) FROM product WHERE 1=1");
+            if (category != null && !category.isEmpty()) {
+                sql.append(" AND cid = ?");
+            }
+            if (brand != null && !brand.isEmpty()) {
+                sql.append(" AND bid = ?");
+            }
+            if (gender != null && !gender.isEmpty()) {
+                sql.append(" AND gid = ?");
+            }
+            if (priceFrom != null) {
+                sql.append(" AND price >= ?");
+            }
+            if (priceTo != null) {
+                sql.append(" AND price <= ?");
+            }
+
+            PreparedStatement stm = connection.prepareStatement(sql.toString());
+            int paramIndex = 1;
+            if (category != null && !category.isEmpty()) {
+                stm.setInt(paramIndex++, Integer.parseInt(category));
+            }
+            if (brand != null && !brand.isEmpty()) {
+                stm.setInt(paramIndex++, Integer.parseInt(brand));
+            }
+            if (gender != null && !gender.isEmpty()) {
+                stm.setInt(paramIndex++, Integer.parseInt(gender));
+            }
+            if (priceFrom != null) {
+                stm.setDouble(paramIndex++, priceFrom);
+            }
+            if (priceTo != null) {
+                stm.setDouble(paramIndex, priceTo);
+            }
+
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public ArrayList<Product> searchByNameAndFilters(String search, String category, String brand, String gender, Double priceFrom, Double priceTo, int pageIndex, int pageSize) {
+        ArrayList<Product> products = new ArrayList<>();
+        try {
+            StringBuilder sql = new StringBuilder("SELECT * FROM product WHERE name LIKE ?");
+            if (category != null && !category.isEmpty()) {
+                sql.append(" AND cid = ?");
+            }
+            if (brand != null && !brand.isEmpty()) {
+                sql.append(" AND bid = ?");
+            }
+            if (gender != null && !gender.isEmpty()) {
+                sql.append(" AND gid = ?");
+            }
+            if (priceFrom != null) {
+                sql.append(" AND price >= ?");
+            }
+            if (priceTo != null) {
+                sql.append(" AND price <= ?");
+            }
+            sql.append(" ORDER BY pid OFFSET ? ROWS FETCH NEXT ? ROWS ONLY;");
+
+            PreparedStatement stm = connection.prepareStatement(sql.toString());
+            stm.setString(1, "%" + search + "%");
+            int paramIndex = 2;
+            if (category != null && !category.isEmpty()) {
+                stm.setInt(paramIndex++, Integer.parseInt(category));
+            }
+            if (brand != null && !brand.isEmpty()) {
+                stm.setInt(paramIndex++, Integer.parseInt(brand));
+            }
+            if (gender != null && !gender.isEmpty()) {
+                stm.setInt(paramIndex++, Integer.parseInt(gender));
+            }
+            if (priceFrom != null) {
+                stm.setDouble(paramIndex++, priceFrom);
+            }
+            if (priceTo != null) {
+                stm.setDouble(paramIndex++, priceTo);
+            }
+            stm.setInt(paramIndex++, (pageIndex - 1) * pageSize);
+            stm.setInt(paramIndex, pageSize);
+
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Product product = extractProduct(rs);
+                products.add(product);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return products;
+    }
+
+    public int countSearchResultsWithFilters(String search, String category, String brand, String gender, Double priceFrom, Double priceTo) {
+        try {
+            StringBuilder sql = new StringBuilder("SELECT COUNT(*) FROM product WHERE name LIKE ?");
+            if (category != null && !category.isEmpty()) {
+                sql.append(" AND cid = ?");
+            }
+            if (brand != null && !brand.isEmpty()) {
+                sql.append(" AND bid = ?");
+            }
+            if (gender != null && !gender.isEmpty()) {
+                sql.append(" AND gid = ?");
+            }
+            if (priceFrom != null) {
+                sql.append(" AND price >= ?");
+            }
+            if (priceTo != null) {
+                sql.append(" AND price <= ?");
+            }
+
+            PreparedStatement stm = connection.prepareStatement(sql.toString());
+            stm.setString(1, "%" + search + "%");
+            int paramIndex = 2;
+            if (category != null && !category.isEmpty()) {
+                stm.setInt(paramIndex++, Integer.parseInt(category));
+            }
+            if (brand != null && !brand.isEmpty()) {
+                stm.setInt(paramIndex++, Integer.parseInt(brand));
+            }
+            if (gender != null && !gender.isEmpty()) {
+                stm.setInt(paramIndex++, Integer.parseInt(gender));
+            }
+            if (priceFrom != null) {
+                stm.setDouble(paramIndex++, priceFrom);
+            }
+            if (priceTo != null) {
+                stm.setDouble(paramIndex, priceTo);
+            }
+
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }
