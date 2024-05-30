@@ -24,17 +24,14 @@
         <servlet-name>searchCate</servlet-name>
         <servlet-class>controller.Category.searchCate</servlet-class>
     </servlet>
+    <servlet>
         <servlet-name>newsDetail</servlet-name>
         <servlet-class>controller.news.newsDetail</servlet-class>
     </servlet>
-     <servlet>
+    <servlet>
         <servlet-name>listproduct</servlet-name>
         <servlet-class>controller.product.listproduct</servlet-class>
     </servlet>
-    <servlet-mapping>
-        <servlet-name>listproduct</servlet-name>
-        <url-pattern>/listproduct</url-pattern>
-    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>newsList</servlet-name>
         <url-pattern>/newsList</url-pattern>
@@ -58,8 +55,14 @@
     <servlet-mapping>
         <servlet-name>searchCate</servlet-name>
         <url-pattern>/searchCate</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>newsDetail</servlet-name>
         <url-pattern>/newsDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>listproduct</servlet-name>
+        <url-pattern>/listproduct</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
