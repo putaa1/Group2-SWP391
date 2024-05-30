@@ -17,13 +17,42 @@
         <h1 class="mb-4">Product Management</h1>
         <a href="addproduct" class="btn btn-success mb-3">Add New Product</a>
 
-        <!-- Search Form -->
-        <form method="get" action="listproduct" class="mb-4">
-            <div class="form-group">
-                <input type="text" name="search" class="form-control" placeholder="Search by name" value="${param.search}">
-            </div>
-            <button type="submit" class="btn btn-primary">Search</button>
-        </form>
+        <!-- Search and Filter Form -->
+         <form action="listproduct" method="get">
+        <!-- Search by name -->
+        <input type="text" name="search" placeholder="Search by name" value="${search}">
+        
+        <!-- Categories Dropdown -->
+        <select name="category">
+            <option value="">All Categories</option>
+            <c:forEach var="category" items="${categories}">
+                <option value="${category.cid}" <c:if test="${category.cid == param.category}">selected</c:if>>${category.name}</option>
+            </c:forEach>
+        </select>
+
+        <!-- Brands Dropdown -->
+        <select name="brand">
+            <option value="">All Brands</option>
+            <c:forEach var="brand" items="${brands}">
+                <option value="${brand.bid}" <c:if test="${brand.bid == param.brand}">selected</c:if>>${brand.name}</option>
+            </c:forEach>
+        </select>
+
+        <!-- Genders Dropdown -->
+        <select name="gender">
+            <option value="">All Genders</option>
+            <c:forEach var="gender" items="${genders}">
+                <option value="${gender.gid}" <c:if test="${gender.gid == param.gender}">selected</c:if>>${gender.description}</option>
+            </c:forEach>
+        </select>
+
+        <!-- Price Range -->
+        <input type="number" name="priceFrom" placeholder="Min Price" value="${priceFrom}">
+        <input type="number" name="priceTo" placeholder="Max Price" value="${priceTo}">
+
+        <!-- Submit Button -->
+        <button type="submit">Filter</button>
+    </form>
 
         <!-- Product Table -->
         <div class="table-container">
@@ -64,17 +93,17 @@
             <ul class="pagination justify-content-center">
                 <c:if test="${pageIndex > 1}">
                     <li class="page-item">
-                        <a class="page-link" href="listproduct?page=${pageIndex - 1}&search=${param.search}">Previous</a>
+                        <a class="page-link" href="listproduct?page=${pageIndex - 1}&search=${param.search}&category=${param.category}&brand=${param.brand}&gender=${param.gender}&priceFrom=${param.priceFrom}&priceTo=${param.priceTo}">Previous</a>
                     </li>
                 </c:if>
                 <c:forEach begin="1" end="${totalPages}" var="i">
                     <li class="page-item ${pageIndex == i ? 'active' : ''}">
-                        <a class="page-link" href="listproduct?page=${i}&search=${param.search}">${i}</a>
+                        <a class="page-link" href="listproduct?page=${i}&search=${param.search}&category=${param.category}&brand=${param.brand}&gender=${param.gender}&priceFrom=${param.priceFrom}&priceTo=${param.priceTo}">${i}</a>
                     </li>
                 </c:forEach>
                 <c:if test="${pageIndex < totalPages}">
                     <li class="page-item">
-                        <a class="page-link" href="listproduct?page=${pageIndex + 1}&search=${param.search}">Next</a>
+                        <a class="page-link" href="listproduct?page=${pageIndex + 1}&search=${param.search}&category=${param.category}&brand=${param.brand}&gender=${param.gender}&priceFrom=${param.priceFrom}&priceTo=${param.priceTo}">Next</a>
                     </li>
                 </c:if>
             </ul>
