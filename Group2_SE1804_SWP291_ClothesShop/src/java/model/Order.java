@@ -12,13 +12,13 @@ public class Order {
     public String orderDate;
     private int totalPrice;
     private String address;
-    private String status;
+    private int status;
     private int cartid;
 
     public Order() {
    }
 
-    public Order(int oid, String orderDate, int totalPrice, String address, String status, int cartid) {
+    public Order(int oid, String orderDate, int totalPrice, String address, int status, int cartid) {
         this.oid = oid;
         this.orderDate = orderDate;
         this.totalPrice = totalPrice;
@@ -28,11 +28,11 @@ public class Order {
     }
 
   
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
     

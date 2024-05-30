@@ -24,8 +24,8 @@
                 <div class="navbar-brand"> Online Shopping System </div>
 
                 <ul class="navbar-nav">
-                    <li><a href="<%=request.getContextPath()%>/listOrder"
-                           class="nav-link">Order</a></li>
+                    <li><a href="<%=request.getContextPath()%>/listOrders"
+                           class="nav-link">Orders</a></li>
                 </ul>
             </nav>
         </header>
@@ -40,38 +40,58 @@
                         </fieldset>
                         <fieldset class="form-group">
                             <label>Order Date</label> 
-                            <input type="text" value="${order.orderDate}" class="form-control"
-                                   name="order_date" id="order_date" required >
+                            <input type="date" value="${order.orderDate}" class="form-control"
+                                   name="orderDate"  id="orderDate" required >
                         </fieldset>
                         <fieldset class="form-group">
                             <label>Total Price</label> 
                             <input type="number" value="${order.totalPrice}" class="form-control"
-                                   name="total_price" id="total_price" required >
+                                   name="totalPrice"  id="totalPrice" required >
                         </fieldset>
                         <fieldset class="form-group">
                             <label>Address</label> 
                             <input type="text" value="${order.address}" class="form-control"
-                                   name="address" id="address" required >
+                                   name="address"  id="address" required >
                         </fieldset>
                         <fieldset class="form-group">
                             <label>Status</label> 
                             <input type="number" value="${order.status}" class="form-control"
-                                   name="status" id="status" required >
+                                   name="status"  id="status" required >
                         </fieldset>
                         <fieldset class="form-group">
                             <label>Cart ID</label> 
                             <input type="number" value="${order.cartid}" class="form-control"
-                                   name="cartid" id="cartid" required >
+                                   name="cartid"  id="cartid" required >
                         </fieldset>
 
                         <div class="text-right">
 
-                            <button type="submit" value="Update" class="btn btn-success">Save</button>
+                            <button type="submit" value="Update" onclick="validateForm()" class="btn btn-success">Save</button>
                         </div>
 
                     </form>
                 </div>
             </div>
         </div>
+        <script>
+            function validateForm() {
+                const orderDate = document.getElementById("orderDate");
+                const address = document.getElementById("address");
+
+                orderDate.setCustomValidity("");
+                address.setCustomValidity("");
+
+                const dateLength = orderDate.value.length;
+                const addressLength = address.value.length;
+
+                if (dateLength === 0) {
+                    orderDate.setCustomValidity("Please enter a valid order date.");
+                }
+
+                if (addressLength < 1 || addressLength > 50) {
+                    address.setCustomValidity("Address length must be between 1 and 50 characters.");
+                }
+            }
+        </script>
     </body>
 </html>

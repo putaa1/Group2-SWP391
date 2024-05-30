@@ -2,55 +2,68 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html class="no-js" lang="en">
-<head>
+<html  class="no-js" lang="en">
+<head> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order List</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>List Order</title>
+    <link rel="icon" href="assets/img/icon.png" type="image/gif" sizes="16x16">
+    <link rel="icon" href="assets/img/icon.png" type="image/gif" sizes="18x18">
+    <link rel="icon" href="assets/img/icon.png" type="image/gif" sizes="20x20">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="assets/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="assets/css/animate.css">
+    <link rel="stylesheet" href="assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="assets/css/normalize.css">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    <link rel="stylesheet" href="./assets/user-style/list-style.css">
 </head>
 <body>
     <!-- Header -->
     <header class="header">
-        <div class="header-top">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-5">
-                        <div class="top-text">
-                            <p>Welcome to Electronics Shop</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-7">
-                        <div class="top-list">
-                            <c:if test="${sessionScope.acc != null}">
-                                <a href="profile"><i class="fas fa-user"></i>${sessionScope.acc.username}</a>
-                            </c:if>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Navigation Menu -->
-        <div class="header-middle pt-30 pb-30">
+        <!-- Header Top -->
+        <!-- Header Middle -->
+        <!-- Header Bottom -->
+        <div class="header-bottm">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        <nav>
-                            <ul>
-                                <li><a href="admin">Home</a></li>
-                                <li><a href="orderlist">Orders</a></li>
-                                <li><a href="productlist">Products</a></li>
-                                <li><a href="userlist">Users</a></li>
-                            </ul>
-                        </nav>
+                        <div class="menu">
+                            <nav>
+                                <ul>
+                                    <li><a href="admin">Home</a></li>
+                                    <li><a href="trending-product"> Trending Product</a></li>
+                                    <li><a>Product<i class="fa fa-angle-down"></i></a>
+                                        <ul class="submenu-item">
+                                            <li><a href="addproduct">Add New Product</a></li>
+                                            <li><a href="listproduct">List Product</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="orderlist">Order</a></li>                               
+                                    <li><a href="user-list">User</a></li>
+                                    <li><a href="customer-list">Customer</a></li>
+                                    <li><a href="#">Cart</a></li>
+                                    <li><a href="#">Feedback</a></li>
+                                    <li><a href="blog.html">blog <i class="fa fa-angle-down"></i></a>
+                                        <ul class="submenu-item">
+                                            <li><a href="blog.html">Blog</a></li>
+                                            <li><a href="blog-grid.html">Blog Grid</a></li>
+                                            <li><a href="single.html">Blog Single</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </header>
-
-    <!-- Main Content -->
+    <!-- End Header -->
     <div style="padding-top: 100px">
         <div class="title text-center">
             <div class="container">
@@ -60,25 +73,28 @@
                     <table class="table table-striped table-bordered table-title" cellspacing="0" rules="all" border="1" id="gvLO" style="border-collapse:collapse;">
                         <thead>
                             <tr>
-                                <th scope="col">Order ID</th>
-                                <th scope="col">Customer Name</th>
+                                <th scope="col">ID</th>
                                 <th scope="col">Order Date</th>
-                                <th scope="col">Total Amount</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Total Price</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach items="${requestScope.orderList}" var="order">
+                            <c:forEach items="${listO}" var="o">
                                 <tr>
-                                    <td>${order.orderId}</td>
-                                    <td>${order.customerName}</td>
-                                    <td>${order.orderDate}</td>
-                                    <td>${order.totalAmount}</td>
-                                    <td>${order.status}</td>
+                                    <td>${o.oid}</td>
+                                    <td>${o.orderDate}</td>
+                                    <td>${o.address}</td>
+                                    <td>${o.totalPrice}</td>
+                                    <td>${o.status}</td>
                                     <td>
-                                        <a href="deleteOrder?orderId=${order.orderId}" onclick="return confirm('Are you sure you want to delete this order?')"><button class="btn btn-danger btn-sm rounded-0" type="button"><i class="fa fa-trash"></i></button></a>
-                                        <a href="updateOrder?orderId=${order.orderId}"><button class="btn btn-success btn-sm rounded-0" type="button"><i class="fa fa-edit"></i></button></a>
+                                        <a href="deleteOrder?oid=${o.oid}" onclick="return checkdelete()">
+                                            <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </a>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -90,11 +106,11 @@
                 <div class="col-12 mb-30">
                     <div class="page-pagination text-center">
                         <ul>
-                            <c:forEach begin="1" end="${requestScope.endPage}" var="i">
+                            <c:forEach begin="1" end="${endPage}" var="i">
                                 <li>
                                     <c:choose>
                                         <c:when test="${empty param.searchOrder}">
-                                            <a href="orderlist?index=${i}">${i}</a>
+                                            <a href="listOrder?index=${i}">${i}</a>
                                         </c:when>
                                         <c:otherwise>
                                             <a href="searchOrder?index=${i}&searchOrder=${param.searchOrder}">${i}</a>
@@ -108,23 +124,22 @@
             </div>
         </div>
     </div>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-top pt-50">
-            <div class="container">
-                <div class="row">
-                    <!-- Footer Content -->
-                    <div class="col-lg-12">
-                        <p>&copy; 2021 Electronics Shop. All Rights Reserved.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Scripts -->
+    <!-- Js File -->
+    <script src="assets/js/modernizr.min.js"></script>
     <script src="assets/js/jquery-3.5.1.min.js"></script>
+    <script src="assets/js/popper.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/owl.carousel.min.js"></script>
+    <script src="assets/js/jquery.nav.min.js"></script>
+    <script src="assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="assets/js/mixitup.min.js"></script>
+    <script src="assets/js/wow.min.js"></script>
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/mobile-menu.js"></script>
+    <script>
+        function checkdelete() {
+            return confirm("Are you sure you want to delete this order?");
+        }
+    </script>
 </body>
 </html>

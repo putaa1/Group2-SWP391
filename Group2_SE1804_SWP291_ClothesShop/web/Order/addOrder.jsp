@@ -69,7 +69,6 @@
         </div>
         <script>
             function validateForm() {
-                const orderDate = document.getElementById("orderDate");
                 const address = document.getElementById("address");
 
                 orderDate.setCustomValidity("");
