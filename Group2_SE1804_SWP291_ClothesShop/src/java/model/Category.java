@@ -10,12 +10,12 @@ package model;
  */
 public class Category {
     private int cid;
-    private int name;
+    private String name;
 
     public Category() {
     }
 
-    public Category(int cid, int name) {
+    public Category(int cid, String name) {
         this.cid = cid;
         this.name = name;
     }
@@ -28,12 +28,12 @@ public class Category {
         this.cid = cid;
     }
 
-    public int getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(int name) {
+    public void setName(String name) {
         this.name = name;
     }
-   
+    
 }

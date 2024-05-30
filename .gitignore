@@ -15,3 +15,4 @@ Group2_SE1804_SWP291_ClothesShop/nbproject/private/private.properties
 Group2_SE1804_SWP291_ClothesShop/nbproject/genfiles.properties
 *.xml
 *.properties
+!/Group2_SE1804_SWP291_ClothesShop/web/WEB-INF/web.xml

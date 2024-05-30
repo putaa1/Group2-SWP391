@@ -14,31 +14,36 @@ public class OrderListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         OrderDAO orderDAO = new OrderDAO();
 
-        String indexPage = request.getParameter("index");
-        if (indexPage == null) {
-            indexPage = "1";
-        }
+        // Retrieve page size from servlet context
+        int pageSize = Integer.parseInt(getServletContext().getInitParameter("pagesize"));
 
-        int index = Integer.parseInt(indexPage);
-        int count = orderDAO.count();
-        int endPage = count / 5;
-        if (count % 5 != 0) {
-            endPage++;
-        }
+        // Retrieve page index from request parameter
+        String page = request.getParameter("page");
+        int pageIndex = (page == null || page.isEmpty()) ? 1 : Integer.parseInt(page);
 
-        List<Order> orderList = orderDAO.pagging(index);
+        // Retrieve orders for the current page index
+        List<Order> orderList = orderDAO.pagging(pageIndex);
+
+        // Calculate total pages for pagination
+        int totalOrders = orderDAO.count();
+        int totalPages = (int) Math.ceil((double) totalOrders / pageSize);
+
+        // Set attributes for JSP rendering
         request.setAttribute("orderList", orderList);
-        request.setAttribute("endPage", endPage);
+        request.setAttribute("currentPage", pageIndex);
+        request.setAttribute("totalPages", totalPages);
 
+        // Forward the request to the JSP
         request.getRequestDispatcher("orderList.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        doGet(request, response);
     }
 
     @Override
