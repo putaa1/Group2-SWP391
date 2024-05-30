@@ -4,27 +4,27 @@
  */
 package model;
 
+import java.util.Date;
+
 /**
  *
- * @author chien
+ * @author KieuTuanPC
  */
 public class Product {
-    private int pid;
-    private String name;
-    private int quantity;
-    private double price;
-    private String describe;
-    private String img;
-    private String releaseDate;
-    private Category category;
-    private Gender gender;
-    private Brand brand;
-    private String size;
+    private int pid; // Product ID
+    private String name; // Product Name
+    private int quantity; // Quantity of Product
+    private double price; // Price of Product
+    private String describe; // Description of Product
+    private String img; // Image URL of Product
+    private Date releaseDate; // Release Date of Product
+    private Category category; // Category
+    private Brand brand; // Brand
+    private Gender gender; // Gender
+    private String size; // Size of Product
 
-    public Product() {
-    }
-
-    public Product(int pid, String name, int quantity, double price, String describe, String img, String releaseDate, Category category, Gender gender, Brand brand, String size) {
+    // Constructor
+    public Product(int pid, String name, int quantity, double price, String describe, String img, Date releaseDate, Category category, Brand brand, Gender gender, String size) {
         this.pid = pid;
         this.name = name;
         this.quantity = quantity;
@@ -33,11 +33,12 @@ public class Product {
         this.img = img;
         this.releaseDate = releaseDate;
         this.category = category;
-        this.gender = gender;
         this.brand = brand;
+        this.gender = gender;
         this.size = size;
     }
 
+    // Getters and Setters
     public int getPid() {
         return pid;
     }
@@ -86,11 +87,11 @@ public class Product {
         this.img = img;
     }
 
-    public String getReleaseDate() {
+    public Date getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(String releaseDate) {
+    public void setReleaseDate(Date releaseDate) {
         this.releaseDate = releaseDate;
     }
 
@@ -102,20 +103,20 @@ public class Product {
         this.category = category;
     }
 
-    public Gender getGender() {
-        return gender;
-    }
-
-    public void setGender(Gender gender) {
-        this.gender = gender;
-    }
-
     public Brand getBrand() {
         return brand;
     }
 
     public void setBrand(Brand brand) {
         this.brand = brand;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
 
     public String getSize() {
@@ -125,5 +126,22 @@ public class Product {
     public void setSize(String size) {
         this.size = size;
     }
-    
+
+    // Override toString() method
+    @Override
+    public String toString() {
+        return "Product{" +
+                "pid=" + pid +
+                ", name='" + name + '\'' +
+                ", quantity=" + quantity +
+                ", price=" + price +
+                ", describe='" + describe + '\'' +
+                ", img='" + img + '\'' +
+                ", releaseDate=" + releaseDate +
+                ", category=" + category +
+                ", brand=" + brand +
+                ", gender=" + gender +
+                ", size='" + size + '\'' +
+                '}';
+    }
 }

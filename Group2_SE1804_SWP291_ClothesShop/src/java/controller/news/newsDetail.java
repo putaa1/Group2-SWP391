@@ -12,14 +12,13 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import model.News;
 
 /**
  *
  * @author ADMIN
  */
-public class newsList extends HttpServlet {
+public class newsDetail extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -30,7 +29,19 @@ public class newsList extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet newsDetail</title>");  
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet newsDetail at " + request.getContextPath () + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -44,43 +55,21 @@ public class newsList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String indexPage = request.getParameter("index");
-        String searchQuery = request.getParameter("search");
-           NewsDAO dao = new NewsDAO();
-           ArrayList<News> n = new ArrayList<News>();
-           if(indexPage != null){
-             int index = Integer.parseInt(indexPage);
-             if(searchQuery != null && searchQuery != ""){
-              n = dao.getNewByTitle(searchQuery, index);
-             }
-             else{
-             n = dao.pagging(index);
-             }
-           }
-           else{
-               if(searchQuery != null && searchQuery != ""){
-              n = dao.getNewByTitle(searchQuery, 1);
-             }
-             else{
-             n = dao.pagging(1);
-             }
-             
-           }
-            
-        int count = dao.count(searchQuery);
-        int pages = 0;
-         if(count % 4 != 0){
-            pages = (count/4) +1 ;
+         NewsDAO dao = new NewsDAO();
+         News news = new News();
+        String newsId = request.getParameter("id");
+        if(newsId!= null){
+          
+         news = dao.detail(Integer.parseInt(newsId));
+        
         }
-         else
-              pages = count/4;
-        request.setAttribute("n", n);
-        request.setAttribute("pages", pages);
-        
-        request.getRequestDispatcher("news/newsList.jsp").forward(request, response);
+        else{
+        news = dao.detail(0);
+        }
+         request.setAttribute("news", news);
+        request.getRequestDispatcher("news/newsDetail.jsp").forward(request, response);
     } 
-   
-        
+
     /** 
      * Handles the HTTP <code>POST</code> method.
      * @param request servlet request
