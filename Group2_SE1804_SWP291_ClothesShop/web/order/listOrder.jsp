@@ -1,25 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html class="no-js" lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>List Order</title>
+    <title>Order List</title>
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/fontawesome.all.min.css">
-    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="assets/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="assets/css/animate.css">
-    <link rel="stylesheet" href="assets/css/magnific-popup.css">
-    <link rel="stylesheet" href="assets/css/normalize.css">
     <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/responsive.css">
 </head>
 <body>
     <!-- Header -->
     <header class="header">
-        <!-- Header Top -->
         <div class="header-top">
             <div class="container">
                 <div class="row">
@@ -38,75 +31,100 @@
                 </div>
             </div>
         </div>
-        <!-- Header Middle -->
-        <!-- Header Bottom -->
-    </header>
-    <!-- End Header -->
-
-    <!-- Start Hero Area -->
-    <div style="padding-top: 100px">
-        <div class="title text-center">
+        <!-- Navigation Menu -->
+        <div class="header-middle pt-30 pb-30">
             <div class="container">
                 <div class="row">
-                    <div class="col">
-                        <!-- Add your search form here -->
-                        <div class="form-group row">
-                            <form action="searchOrder" method="get">
-                                <div class="input-group">
-                                    <div class="form-outline">
-                                        <input type="search" name="searchOrder" class="form-control" placeholder="Search order by name here..."  />
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <!-- Add your title here -->
-                        <h1>Order List</h1>
-                    </div>
-                    <div class="col">
-                        <!-- Add any additional content here -->
+                    <div class="col-lg-12">
+                        <nav>
+                            <ul>
+                                <li><a href="admin">Home</a></li>
+                                <li><a href="orderlist">Orders</a></li>
+                                <li><a href="productlist">Products</a></li>
+                                <li><a href="userlist">Users</a></li>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-12 mb-30">
-                <div class="page-pagination text-center">
-                    <ul>
-                        <!-- Add pagination links here -->
-                        <c:forEach begin="1" end="${requestScope.endPage}" var="i">
-                            <li>
-                                <c:choose>
-                                    <c:when test="${empty param.searchOrder}">
-                                        <a href="listOrder?index=${i}">${i}</a>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <a href="searchOrder?index=${i}&searchOrder=${param.searchOrder}">${i}</a>
-                                    </c:otherwise>
-                                </c:choose>
-                            </li>
-                        </c:forEach>
-                    </ul>
+    </header>
+
+    <!-- Main Content -->
+    <div style="padding-top: 100px">
+        <div class="title text-center">
+            <div class="container">
+                <h1>Order List</h1>
+                <br>
+                <div style="margin-left: 100px; margin-right: 100px">
+                    <table class="table table-striped table-bordered table-title" cellspacing="0" rules="all" border="1" id="gvLO" style="border-collapse:collapse;">
+                        <thead>
+                            <tr>
+                                <th scope="col">Order ID</th>
+                                <th scope="col">Customer Name</th>
+                                <th scope="col">Order Date</th>
+                                <th scope="col">Total Amount</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${requestScope.orderList}" var="order">
+                                <tr>
+                                    <td>${order.orderId}</td>
+                                    <td>${order.customerName}</td>
+                                    <td>${order.orderDate}</td>
+                                    <td>${order.totalAmount}</td>
+                                    <td>${order.status}</td>
+                                    <td>
+                                        <a href="deleteOrder?orderId=${order.orderId}" onclick="return confirm('Are you sure you want to delete this order?')"><button class="btn btn-danger btn-sm rounded-0" type="button"><i class="fa fa-trash"></i></button></a>
+                                        <a href="updateOrder?orderId=${order.orderId}"><button class="btn btn-success btn-sm rounded-0" type="button"><i class="fa fa-edit"></i></button></a>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 mb-30">
+                    <div class="page-pagination text-center">
+                        <ul>
+                            <c:forEach begin="1" end="${requestScope.endPage}" var="i">
+                                <li>
+                                    <c:choose>
+                                        <c:when test="${empty param.searchOrder}">
+                                            <a href="orderlist?index=${i}">${i}</a>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <a href="searchOrder?index=${i}&searchOrder=${param.searchOrder}">${i}</a>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- End Hero Area -->
 
-    <!-- Start Footer Area -->
+    <!-- Footer -->
     <footer class="footer">
-        <!-- Footer Top -->
-        <!-- Footer Bottom -->
+        <div class="footer-top pt-50">
+            <div class="container">
+                <div class="row">
+                    <!-- Footer Content -->
+                    <div class="col-lg-12">
+                        <p>&copy; 2021 Electronics Shop. All Rights Reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </footer>
-    <!-- End Footer Area -->
 
-    <!-- Include necessary JavaScript files -->
+    <!-- Scripts -->
     <script src="assets/js/jquery-3.5.1.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
-    <!-- Add any additional JavaScript scripts -->
 </body>
 </html>
