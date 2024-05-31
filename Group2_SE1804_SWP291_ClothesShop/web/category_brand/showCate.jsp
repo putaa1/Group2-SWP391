@@ -184,7 +184,7 @@
 
                                     <div class="input-group">
                                         <div class="form-outline">
-                                            <input type="search" name="searchCate" class="form-control" placeholder="Search category by name heres..."  />
+                                            <input type="search" name="searchCate" class="form-control" placeholder="${param.searchCate}"  />
                                         </div>
 
                                         <button type="submit" class="btn btn-primary">
@@ -204,7 +204,13 @@
                 </div>
                 <h1>Category List</h1>
                 <br>
+        
                 <div style="margin-left: 100px; margin-right: 100px">
+                            <div style="text-align: start">
+                    <a href="addCate">
+                        <button class="btn btn-success btn-sm" type="button" data-toggle="tooltip" data-placement="top" title="Edit">Add Category</button>
+                    </a>
+                </div>
                     <table class="table table-striped table-bordered table-title" cellspacing="0" rules="all" border="1" id="gvLO"
                            style="border-collapse:collapse;">
                         <thead>
