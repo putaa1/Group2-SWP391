@@ -12,14 +12,12 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
-import model.Category;
 
 /**
  *
  * @author chien
  */
-public class showCate extends HttpServlet {
+public class deleteCate extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -36,10 +34,10 @@ public class showCate extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet showCate</title>");  
+            out.println("<title>Servlet deleteCate</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet showCate at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet deleteCate at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -56,12 +54,15 @@ public class showCate extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-               CategoryDAO cd = new CategoryDAO();
-                  
-            List<Category> list = cd.getAllCate();
-            request.setAttribute("cate", list);
- 
-        request.getRequestDispatcher("category/newjsp.jsp").forward(request, response);
+        try {
+            
+      
+        int cid = Integer.parseInt(request.getParameter("cid"));
+            CategoryDAO cd = new CategoryDAO();
+            cd.deleteCate(cid);
+            response.sendRedirect("listCate");
+          } catch (NumberFormatException e) {
+        }
     } 
 
     /** 

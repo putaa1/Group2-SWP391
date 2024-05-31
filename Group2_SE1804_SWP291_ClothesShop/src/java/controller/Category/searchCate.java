@@ -3,23 +3,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller.news;
+package controller.Category;
 
-import context.NewsDAO;
+import context.CategoryDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import model.News;
+import java.util.List;
+import model.Category;
 
 /**
  *
- * @author ADMIN
+ * @author chien
  */
-public class newsList extends HttpServlet {
+public class searchCate extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -30,7 +30,19 @@ public class newsList extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet searchCate</title>");  
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet searchCate at " + request.getContextPath () + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -44,43 +56,31 @@ public class newsList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        CategoryDAO cd = new CategoryDAO();
+        String searchCate = request.getParameter("searchCate");
         String indexPage = request.getParameter("index");
-        String searchQuery = request.getParameter("search");
-           NewsDAO dao = new NewsDAO();
-           ArrayList<News> n = new ArrayList<News>();
-           if(indexPage != null){
-             int index = Integer.parseInt(indexPage);
-             if(searchQuery != null && searchQuery != ""){
-              n = dao.getNewByTitle(searchQuery, index);
-             }
-             else{
-             n = dao.pagging(index);
-             }
-           }
-           else{
-               if(searchQuery != null && searchQuery != ""){
-              n = dao.getNewByTitle(searchQuery, 1);
-             }
-             else{
-             n = dao.pagging(1);
-             }
-             
-           }
-            
-        int count = dao.count(searchQuery);
-        int pages = 0;
-         if(count % 4 != 0){
-            pages = (count/4) +1 ;
+        if (indexPage == null) {
+            indexPage = "1";
         }
-         else
-              pages = count/4;
-        request.setAttribute("n", n);
-        request.setAttribute("pages", pages);
         
-        request.getRequestDispatcher("news/newsList.jsp").forward(request, response);
+        if(searchCate==null){
+            response.sendRedirect("listCate?index="+indexPage);
+        }else{
+             int index1 = Integer.parseInt(indexPage);
+        int count = cd.count();
+        int endPage = count / 5;
+        if (count % 5 != 0) {
+            endPage++;
+        }
+        List<Category> listC = cd.search(searchCate, index1);
+        request.setAttribute("endPage", endPage);
+        request.setAttribute("listC", listC);
+        request.setAttribute("searchCate", searchCate);
+        request.getRequestDispatcher("category_brand/showCate.jsp").forward(request, response);
+        }
+       
     } 
-   
-        
+
     /** 
      * Handles the HTTP <code>POST</code> method.
      * @param request servlet request

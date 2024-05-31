@@ -5,6 +5,26 @@
         <servlet-class>controller.news.newsList</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>listCate</servlet-name>
+        <servlet-class>controller.Category.listCate</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>deleteCate</servlet-name>
+        <servlet-class>controller.Category.deleteCate</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>updateCate</servlet-name>
+        <servlet-class>controller.Category.updateCate</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>addCate</servlet-name>
+        <servlet-class>controller.Category.addCate</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>searchCate</servlet-name>
+        <servlet-class>controller.Category.searchCate</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>newsDetail</servlet-name>
         <servlet-class>controller.news.newsDetail</servlet-class>
     </servlet>
@@ -29,12 +49,28 @@
         <servlet-class>controller.User.VerifyEmail</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>listproduct</servlet-name>
-        <url-pattern>/listproduct</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>newsList</servlet-name>
         <url-pattern>/newsList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>listCate</servlet-name>
+        <url-pattern>/listCate</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>deleteCate</servlet-name>
+        <url-pattern>/deleteCate</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>updateCate</servlet-name>
+        <url-pattern>/updateCate</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addCate</servlet-name>
+        <url-pattern>/addCate</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>searchCate</servlet-name>
+        <url-pattern>/searchCate</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>newsDetail</servlet-name>

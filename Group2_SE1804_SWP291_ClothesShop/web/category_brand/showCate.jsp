@@ -7,22 +7,22 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>List Product</title>
-        <link rel="icon" href="../assets/img/icon.png" type="image/gif" sizes="16x16">
-        <link rel="icon" href="../assets/img/icon.png" type="image/gif" sizes="18x18">
-        <link rel="icon" href="../assets/img/icon.png" type="image/gif" sizes="20x20">
+        <title>List Category</title>
+        <link rel="icon" href="assets/img/icon.png" type="image/gif" sizes="16x16">
+        <link rel="icon" href="assets/img/icon.png" type="image/gif" sizes="18x18">
+        <link rel="icon" href="assets/img/icon.png" type="image/gif" sizes="20x20">
 
-        <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-        <link rel="stylesheet" href="../assets/css/fontawesome.all.min.css">
-        <link rel="stylesheet" href="../assets/css/owl.carousel.min.css">
-        <link rel="stylesheet" href="../assets/css/owl.theme.default.min.css">
-        <link rel="stylesheet" href="../assets/css/animate.css">
-        <link rel="stylesheet" href="../assets/css/magnific-popup.css">
-        <link rel="stylesheet" href="../assets/css/normalize.css">
-        <link rel="stylesheet" href="../assets/css/style.css">
-        <link rel="stylesheet" href="../assets/css/responsive.css">
-        <link rel="stylesheet" href="./../assets/user-style/list-style.css">
-        <link rel="stylesheet" href="./../assets/user-style/list-style.css">
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="assets/css/fontawesome.all.min.css">
+        <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+        <link rel="stylesheet" href="assets/css/owl.theme.default.min.css">
+        <link rel="stylesheet" href="assets/css/animate.css">
+        <link rel="stylesheet" href="assets/css/magnific-popup.css">
+        <link rel="stylesheet" href="assets/css/normalize.css">
+        <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="stylesheet" href="assets/css/responsive.css">
+        <link rel="stylesheet" href="./assets/user-style/list-style.css">
+        <link rel="stylesheet" href="./assets/user-style/list-style.css">
     </head>
     <body>
         <div id="preloader" class="preeloader">
@@ -72,13 +72,13 @@
                         <!-- Logo -->
                         <div class="col-lg-2">
                             <div class="logo">
-                                <h2><a href="index.html"><img src="../assets/img/logo.png"></a></h2>
+                                <h2><a href="index.html"><img src="assets/img/logo.png"></a></h2>
                             </div>
                         </div>
                         <!-- Search Bar -->
 
                         <!-- MiniCart -->
-                        
+
                     </div>
                 </div>
             </div>
@@ -88,7 +88,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="logo-2">
-                                <h2><a href="index.html"><img src="../assets/img/logo.png"></a></h2>
+                                <h2><a href="index.html"><img src="assets/img/logo.png"></a></h2>
                             </div>
                             <div class="canvas_open">
                                 <a href="javascript:void(0)"><i class="fas fa-bars"></i></a>
@@ -104,14 +104,14 @@
                                             <ul class="cart-list-full">
                                                 <!-- Single -->
                                                 <li class="cart-list-single">
-                                                    <img src="../assets/img/product/1.jpg" alt="img">
+                                                    <img src="assets/img/product/1.jpg" alt="img">
                                                     <h5><a href="#">simple product</a></h5>
                                                     <span class="price">$120</span>
                                                     <div class="close"><i class="fas fa-times"></i></div>
                                                 </li>
                                                 <!-- Single -->
                                                 <li class="cart-list-single">
-                                                    <img src="../assets/img/product/2.jpg" alt="img">
+                                                    <img src="assets/img/product/2.jpg" alt="img">
                                                     <h5><a href="#">simple product</a></h5>
                                                     <span class="price">$120</span>
                                                     <div class="close"><i class="fas fa-times"></i></div>
@@ -171,53 +171,22 @@
             <div class="title text-center">
                 <div class="container">
                     <div class="row">
-                        <div class="col"></div>
+                        <div class="col">
+
+                        </div>
                         <div class="col-6">
-                            
-<!--                            <div class="menu">
-                                <nav>
-                                    <ul>
-                                        <li>All Categories<i class="fa fa-angle-down"></i>
-                                            <ul class="submenu-item">
-                                                <c:forEach items="${c}" var="c">
-                                                    <li><a href="bycate?category_id=${c.category_id}">${c.category_name}</a></li>
-                                                    </c:forEach>
-                                            </ul>
-                                        </li>
-                                        <li>All Brand<i class="fa fa-angle-down"></i>
-                                            <ul class="submenu-item">
-                                                <c:forEach items="${b}" var="b">
-                                                    <li ><a href="bybrand?brand_id=${b.brand_id}">${b.brand_name}</a></li>
-                                                    </c:forEach>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>-->
-                            
-                            <div class="form-group">
-                                
-                                <form action="searchproduct" method="post">
-                                    <!--                                    <input type="search" name="search" class="form-control" placeholder="Search product here..." required>
-                                                                        <button type="button" class="btn btn-primary"><i class="fas fa-search"></i></button>-->
+
+
+
+                            <div class="form-group row">
+
+                                <form action="searchCate" method="get">
+
                                     <div class="input-group">
                                         <div class="form-outline">
-                                            <input type="search" name="search" class="form-control" placeholder="Search product here..."  />
+                                            <input type="search" name="searchCate" class="form-control" placeholder="Search category by name heres..."  />
                                         </div>
-                                        
-                                        <select class="form-search text-center" name="category_id" onchange="window.location.href = 'bycate?category_id=' + this.value" >
-                                            <option>All Categories</option>
-                                            <c:forEach items="${c}" var="c">
-                                                <option value="${c.category_id}" >${c.category_name}</option>
-                                            </c:forEach>
-                                        </select>
-                                                
-                                        <select class="form-search text-center" name="brand_id" onchange="window.location.href = 'bybrand?brand_id=' + this.value">
-                                            <option>All Brand</option>
-                                            <c:forEach items="${b}" var="b">
-                                                <option value="${b.brand_id}" >${b.brand_name}</option></a>
-                                            </c:forEach>
-                                        </select>
+
                                         <button type="submit" class="btn btn-primary">
                                             <i class="fas fa-search"></i>
                                         </button>
@@ -233,7 +202,7 @@
                     </div>
 
                 </div>
-                <h1>Product List</h1>
+                <h1>Category List</h1>
                 <br>
                 <div style="margin-left: 100px; margin-right: 100px">
                     <table class="table table-striped table-bordered table-title" cellspacing="0" rules="all" border="1" id="gvLO"
@@ -241,30 +210,23 @@
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>
-                                <th scope="col">Product Name</th>
-                                <th scope="col">Price</th>
-                                <th scope="col">Sale</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">IMG</th>
-                                <th scope="col">Status</th>
+                                <th scope="col">Category Name</th>
+
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach items="${p}" var="p">
+                            <c:forEach items="${requestScope.listC}" var="c">
                                 <tr>
-                                    <td>${p.product_id}</td>
-                                    <td>${p.product_name}</td>
-                                    <td>${p.price}</td>
-                                    <td>${p.sale}</td>
-                                    <td>${p.description}</td>
-                                    <td><a href="productdetail?product_id=${p.product_id}"><img src="./../assets/img/user/${p.pimg_url}" width="50px" height="50px" alt="alt"/></a></td>
-                                    <td>${p.status}</td>
+                                    <td>${c.cid}</td>
+                                    <td>${c.name}</td>
+
+
                                     <td><li class="list-inline-item">
-                                <a href="deleteproduct?product_id=${p.product_id}" onclick="return checkdelete()"><button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button></a>
+                                <a href="deleteCate?cid=${c.cid}" onclick="return checkdelete()"><button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button></a>
                             </li>
                             <li class="list-inline-item">
-                                <a href="updateproduct?product_id=${p.product_id}"><button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button></a>
+                                <a href="updateCate?cidUpdate=${c.cid}"><button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button></a>
                             </li>
                             </td>
                             </tr>
@@ -278,17 +240,30 @@
             <div class="row">
                 <div class="col-12 mb-30">
                     <div class="page-pagination text-center">
-                        <ul>
-                            <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
-                                    <c:forEach begin="1" end="${endPage}" var="i">
-                                <li><a href="listproduct?index=${i}">${i}</a></li>
 
+                        <ul>
+
+                            <c:forEach begin="1" end="${requestScope.endPage}" var="i">
+                                <li>
+                                    <c:choose>
+                                        <c:when test="${empty param.searchCate}">
+                                            <a href="listCate?index=${i}">${i}</a>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <a href="searchCate?index=${i}&searchCate=${param.searchCate}">${i}</a>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </li>
                             </c:forEach>
-                            <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+
+
                         </ul>
+
                     </div>
                 </div>
             </div>
+
+
 
 
         </div>
@@ -329,7 +304,7 @@
                         <!-- SIngle -->
                         <div class="col-lg-3 col-md-6 mb-30">
                             <div class="footer-widgets-single">
-                                <h2><img src="../assets/img/white-logo.png"></h2>
+                                <h2><img src="assets/img/white-logo.png"></h2>
                                 <p> Lorem ipsum dolor sit amet, consectetuipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqut enim ad minim veniamquis </p>
                             </div>
                         </div>
@@ -386,11 +361,11 @@
                         </div>
                         <div class="col-md-6">
                             <ul class="footer_payment">
-                                <li><a href="#"><img src="../assets/img/visa.png" alt="visa"></a></li>
-                                <li><a href="#"><img src="../assets/img/discover.png" alt="discover"></a></li>
-                                <li><a href="#"><img src="../assets/img/master_card.png" alt="master_card"></a></li>
-                                <li><a href="#"><img src="../assets/img/paypal.png" alt="paypal"></a></li>
-                                <li><a href="#"><img src="../assets/img/amarican_express.png" alt="amarican_express"></a></li>
+                                <li><a href="#"><img src="assets/img/visa.png" alt="visa"></a></li>
+                                <li><a href="#"><img src="assets/img/discover.png" alt="discover"></a></li>
+                                <li><a href="#"><img src="assets/img/master_card.png" alt="master_card"></a></li>
+                                <li><a href="#"><img src="assets/img/paypal.png" alt="paypal"></a></li>
+                                <li><a href="#"><img src="assets/img/amarican_express.png" alt="amarican_express"></a></li>
                             </ul>
                         </div>
                     </div>
@@ -407,28 +382,29 @@
 
 
         <!-- Js File -->
-        <script src="../assets/js/modernizr.min.js"></script>
-        <script src="../assets/js/jquery-3.5.1.min.js"></script>
-        <script src="../assets/js/popper.min.js"></script>
-        <script src="../assets/js/bootstrap.min.js"></script>
-        <script src="../assets/js/owl.carousel.min.js"></script>
-        <script src="../assets/js/jquery.nav.min.js"></script>
-        <script src="../assets/js/jquery.magnific-popup.min.js"></script>
-        <script src="../assets/js/mixitup.min.js"></script>
-        <script src="../assets/js/wow.min.js"></script>
-        <script src="../assets/js/script.js"></script>
-        <script src="../assets/js/mobile-menu.js"></script>
+        <script src="assets/js/modernizr.min.js"></script>
+        <script src="assets/js/jquery-3.5.1.min.js"></script>
+        <script src="assets/js/popper.min.js"></script>
+        <script src="assets/js/bootstrap.min.js"></script>
+        <script src="assets/js/owl.carousel.min.js"></script>
+        <script src="assets/js/jquery.nav.min.js"></script>
+        <script src="assets/js/jquery.magnific-popup.min.js"></script>
+        <script src="assets/js/mixitup.min.js"></script>
+        <script src="assets/js/wow.min.js"></script>
+        <script src="assets/js/script.js"></script>
+        <script src="assets/js/mobile-menu.js"></script>
         <script>
                                     function checkdelete() {
-                                        return confirm("Are you sure want to delete?");
+                                        return confirm("Deleting a category means deleting all products in this category. Are you sure want to delete?");
                                     }
                                     function checkinput() {
                                         var search = document.getElementById("search").value;
                                         if (search === "") {
                                             return confirm("Please fill in blank");
                                         }
+
                                     }
-                                    function click(category_id){
+                                    function click(category_id) {
                                         window.location.href = 'bycate?category_id=' + category_id;
                                     }
         </script>

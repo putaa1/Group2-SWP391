@@ -18,6 +18,58 @@ import java.util.logging.Logger;
  */
 public class CategoryDAO extends DBContext {
 
+    public ArrayList<Category> search(String key, int index) {
+        ArrayList<Category> list = new ArrayList<>();
+        String sql = "SELECT * from category c where c.name like '%" + key + "%'"
+                + "ORDER BY cid\n"
+                + "OFFSET ? ROWS\n"
+                + "FETCH NEXT 5 ROWS ONLY;";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, (index - 1) * 5);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                list.add(new Category(rs.getInt(1), rs.getString(2)));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+
+    public ArrayList<Category> pagging(int index) {
+        ArrayList<Category> cate = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM category\n"
+                    + "ORDER BY cid\n"
+                    + "OFFSET ? ROWS\n"
+                    + "FETCH NEXT 5 ROWS ONLY;";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, (index - 1) * 5);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                cate.add(new Category(rs.getInt(1), rs.getString(2)));
+            }
+        } catch (SQLException e) {
+        }
+        return cate;
+    }
+
+    public int count() {
+        try {
+            String sql = "select count (*) from category";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+        }
+        return 0;
+    }
+
     public ArrayList<Category> getAllCate() {
         ArrayList<Category> listCate = new ArrayList<>();
         String sql = "select * from category";
@@ -75,12 +127,12 @@ public class CategoryDAO extends DBContext {
         }
     }
 
-    public void updateCate(Category c) {
+    public void updateCate(int cid, String name) {
         String sql = "Update category set name = ? where cid =? ";
         try {
             PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setString(1, c.getName());
-            stm.setInt(2, c.getCid());
+            stm.setString(1, name);
+            stm.setInt(2, cid);
             stm.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -106,11 +158,11 @@ public class CategoryDAO extends DBContext {
     public static void main(String[] args) {
 
         CategoryDAO cd = new CategoryDAO();
-        cd.deleteCate(5);
-        ArrayList<Category> list = cd.getAllCate();
+
+        ArrayList<Category> list = cd.search("",2);
 
         for (Category category : list) {
-            System.out.println(category.getName());
+            System.out.println(category.getName() + ", " + category.getCid());
         }
 
     }
