@@ -5,12 +5,15 @@
 
 package Controller.Order;
 
+import context.OrderDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
+import model.Order;
 
 /**
  *
@@ -66,7 +69,15 @@ public class listOrder extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        // Lấy danh sách các đơn hàng từ OrderDAO
+        OrderDAO orderDAO = new OrderDAO();
+        List<Order> orderList = orderDAO.getAllOrders();
+
+        // Đặt danh sách vào request attribute để chuyển tiếp tới JSP
+        request.setAttribute("orderList", orderList);
+
+        // Chuyển tiếp yêu cầu tới trang listOrder.jsp
+        request.getRequestDispatcher("listOrder.jsp").forward(request, response);
     }
 
     /** 
