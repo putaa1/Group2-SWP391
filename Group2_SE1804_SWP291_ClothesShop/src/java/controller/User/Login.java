@@ -6,6 +6,9 @@ package controller.User;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -77,6 +80,23 @@ public class Login extends HttpServlet {
             request.setAttribute("error", "Password and username must not be empty.");
             request.getRequestDispatcher("Login.jsp").forward(request, response);
         }
+
+        User user = null;
+        try {
+            user = Users.verify(username, password);
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if (user == null) {
+            request.setAttribute("error", "Invalid credentials.");
+            request.getRequestDispatcher("Login.jsp").forward(request, response);
+        }
+
+        HttpSession session = request.getSession();
+        session.setAttribute("acc", user.getId());
+
+        response.sendRedirect("home");
     }
 
     /**
