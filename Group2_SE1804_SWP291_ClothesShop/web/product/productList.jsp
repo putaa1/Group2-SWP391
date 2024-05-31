@@ -11,6 +11,25 @@
             margin-top: 20px;
         }
     </style>
+    <script>
+        function validateForm() {
+            const priceFrom = document.forms["filterForm"]["priceFrom"].value;
+            const priceTo = document.forms["filterForm"]["priceTo"].value;
+            const maxPrice = ${maxPrice};
+
+            if (priceFrom && priceFrom <= 0) {
+                alert("Min Price must be greater than 0");
+                return false;
+            }
+
+            if (priceTo && priceTo >= maxPrice) {
+                alert("Max Price must be less than " + maxPrice);
+                return false;
+            }
+
+            return true;
+        }
+    </script>
 </head>
 <body>
     <div class="container mt-5">
@@ -18,41 +37,41 @@
         <a href="addproduct" class="btn btn-success mb-3">Add New Product</a>
 
         <!-- Search and Filter Form -->
-         <form action="listproduct" method="get">
-        <!-- Search by name -->
-        <input type="text" name="search" placeholder="Search by name" value="${search}">
-        
-        <!-- Categories Dropdown -->
-        <select name="category">
-            <option value="">All Categories</option>
-            <c:forEach var="category" items="${categories}">
-                <option value="${category.cid}" <c:if test="${category.cid == param.category}">selected</c:if>>${category.name}</option>
-            </c:forEach>
-        </select>
+        <form name="filterForm" action="listproduct" method="get" onsubmit="return validateForm()">
+            <!-- Search by name -->
+            <input type="text" name="search" placeholder="Search by name" value="${search}">
 
-        <!-- Brands Dropdown -->
-        <select name="brand">
-            <option value="">All Brands</option>
-            <c:forEach var="brand" items="${brands}">
-                <option value="${brand.bid}" <c:if test="${brand.bid == param.brand}">selected</c:if>>${brand.name}</option>
-            </c:forEach>
-        </select>
+            <!-- Categories Dropdown -->
+            <select name="category">
+                <option value="">All Categories</option>
+                <c:forEach var="category" items="${categories}">
+                    <option value="${category.cid}" <c:if test="${category.cid == param.category}">selected</c:if>>${category.name}</option>
+                </c:forEach>
+            </select>
 
-        <!-- Genders Dropdown -->
-        <select name="gender">
-            <option value="">All Genders</option>
-            <c:forEach var="gender" items="${genders}">
-                <option value="${gender.gid}" <c:if test="${gender.gid == param.gender}">selected</c:if>>${gender.description}</option>
-            </c:forEach>
-        </select>
+            <!-- Brands Dropdown -->
+            <select name="brand">
+                <option value="">All Brands</option>
+                <c:forEach var="brand" items="${brands}">
+                    <option value="${brand.bid}" <c:if test="${brand.bid == param.brand}">selected</c:if>>${brand.name}</option>
+                </c:forEach>
+            </select>
 
-        <!-- Price Range -->
-        <input type="number" name="priceFrom" placeholder="Min Price" value="${priceFrom}">
-        <input type="number" name="priceTo" placeholder="Max Price" value="${priceTo}">
+            <!-- Genders Dropdown -->
+            <select name="gender">
+                <option value="">All Genders</option>
+                <c:forEach var="gender" items="${genders}">
+                    <option value="${gender.gid}" <c:if test="${gender.gid == param.gender}">selected</c:if>>${gender.description}</option>
+                </c:forEach>
+            </select>
 
-        <!-- Submit Button -->
-        <button type="submit">Filter</button>
-    </form>
+            <!-- Price Range -->
+            <input type="number" name="priceFrom" placeholder="Min Price" value="${priceFrom}">
+            <input type="number" name="priceTo" placeholder="Max Price" value="${priceTo}">
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary">Filter</button>
+        </form>
 
         <!-- Product Table -->
         <div class="table-container">
