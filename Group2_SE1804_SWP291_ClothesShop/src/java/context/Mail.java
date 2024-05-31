@@ -5,8 +5,9 @@
 package context;
 
 import com.sun.jdi.connect.Transport;
-import jakarta.websocket.Session;
+import java.net.PasswordAuthentication;
 import java.util.Properties;
+import org.apache.catalina.Session;
 
 /**
  *
@@ -49,26 +50,6 @@ public class Mail {
             throw new RuntimeException(e);
         }
     }
-    
-    static public void sendChangePasswordEmail(String newPassword, String email) {
-        Session session = Mail.prepare();
-        
-        // compose message
-        try {
-            MimeMessage message = new MimeMessage(session);
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
-            message.setSubject("Orgasm Website - Change your password");
-            message.setText("Your new password is: " + newPassword + ". Please change login and change your password again.");
- 
-            // send message
-            Transport.send(message);
- 
-            System.out.println("Message sent successfully");
-        } catch (MessagingException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    
     public static void main(String[] args) {
         Mail.sendVerifyEmail("asdf", "asdjfasd@baksdf.casoduf");
     }

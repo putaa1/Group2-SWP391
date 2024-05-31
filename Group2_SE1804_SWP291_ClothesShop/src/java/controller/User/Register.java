@@ -8,6 +8,8 @@ import context.Mail;
 import context.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -76,9 +78,17 @@ public class Register extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
+        String fullName = request.getParameter("fullName");
+        String phone = request.getParameter("phone");
+        String address = request.getParameter("address");
         String email = request.getParameter("email");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        String dob = request.getParameter("dob");
+        String gender = request.getParameter("gender");
+        Date birth = new SimpleDateFormat("dd/MM/yyyy").parse(dob);
+        int gen = Integer.parseInt(gender);
+        
         
         if (email == null || username == null || password == null || email.isEmpty() || username.isEmpty() || password.isEmpty()) {
             request.setAttribute("error", "Password and username must not be empty.");
@@ -88,7 +98,7 @@ public class Register extends HttpServlet {
         try {
             String token = Token.generateToken();
             User users = new UserDAO();
-            User user = users.add(email, username, password, 1, token); // 1 means user role
+            User user = users.add(fullName, phone, address, email, username, password, birth, gen, 0);
             if (user == null) {
                 request.setAttribute("error", "Username already exists.");
                 request.getRequestDispatcher("Signup.jsp").forward(request, response);
