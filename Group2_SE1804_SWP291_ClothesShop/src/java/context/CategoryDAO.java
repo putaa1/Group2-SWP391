@@ -57,9 +57,22 @@ public class CategoryDAO extends DBContext {
         return cate;
     }
 
+
     public int count() {
         try {
             String sql = "select count (*) from category";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+        }
+        return 0;
+    }
+        public int count2(String key) {
+        try {
+            String sql = "SELECT count(*) from category c where c.name like '%" + key + "%'";
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {

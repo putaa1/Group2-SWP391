@@ -32,7 +32,7 @@ public class listCate extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -61,25 +61,39 @@ public class listCate extends HttpServlet {
         CategoryDAO cd = new CategoryDAO();
 
         String indexPage = request.getParameter("index");
-  
+        String searchCate = request.getParameter("searchCate");
 
         if (indexPage == null) {
             indexPage = "1";
         }
-   
-        int index1 = Integer.parseInt(indexPage);
-     
 
+        if (searchCate == null) {
+            int index1 = Integer.parseInt(indexPage);
             int count = cd.count();
             int endPage = count / 5;
             if (count % 5 != 0) {
                 endPage++;
             }
             List<Category> listC = cd.pagging(index1);
-            request.setAttribute("listC", listC);
             request.setAttribute("endPage", endPage);
+            request.setAttribute("listC", listC);
+            request.setAttribute("searchCate", searchCate);
+            request.getRequestDispatcher("category_brand/showCate.jsp").forward(request, response);
 
-        request.getRequestDispatcher("category_brand/showCate.jsp").forward(request, response);
+        } else {
+            int index1 = Integer.parseInt(indexPage);
+            int count = cd.count2(searchCate);
+            int endPage = count / 5;
+            if (count % 5 != 0) {
+                endPage++;
+            }
+            List<Category> listC = cd.search(searchCate, index1);
+            request.setAttribute("endPage", endPage);
+            request.setAttribute("listC", listC);
+            request.setAttribute("searchCate", searchCate);
+            request.getRequestDispatcher("category_brand/showCate.jsp").forward(request, response);
+        }
+
     }
 
     /**

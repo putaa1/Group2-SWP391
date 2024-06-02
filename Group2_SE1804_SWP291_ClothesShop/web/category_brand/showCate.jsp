@@ -180,7 +180,7 @@
 
                             <div class="form-group row">
 
-                                <form action="searchCate" method="get">
+                                <form action="listCate" method="get">
 
                                     <div class="input-group">
                                         <div class="form-outline">
@@ -204,13 +204,13 @@
                 </div>
                 <h1>Category List</h1>
                 <br>
-        
+
                 <div style="margin-left: 100px; margin-right: 100px">
-                            <div style="text-align: start">
-                    <a href="addCate">
-                        <button class="btn btn-success btn-sm" type="button" data-toggle="tooltip" data-placement="top" title="Edit">Add Category</button>
-                    </a>
-                </div>
+                    <div style="text-align: start">
+                        <a href="addCate">
+                            <button class="btn btn-success btn-sm" type="button" data-toggle="tooltip" data-placement="top" title="Edit">Add Category</button>
+                        </a>
+                    </div>
                     <table class="table table-striped table-bordered table-title" cellspacing="0" rules="all" border="1" id="gvLO"
                            style="border-collapse:collapse;">
                         <thead>
@@ -248,17 +248,13 @@
                     <div class="page-pagination text-center">
 
                         <ul>
-
+                            <c:set var="currentIndex" value="${param.index != null ? param.index : 1}" />
                             <c:forEach begin="1" end="${requestScope.endPage}" var="i">
                                 <li>
-                                    <c:choose>
-                                        <c:when test="${empty param.searchCate}">
-                                            <a href="listCate?index=${i}">${i}</a>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <a href="searchCate?index=${i}&searchCate=${param.searchCate}">${i}</a>
-                                        </c:otherwise>
-                                    </c:choose>
+
+                                    <a class="${i == currentIndex ? 'active' : ''}" href="listCate?index=${i}&searchCate=${param.searchCate}">${i}</a>
+
+
                                 </li>
                             </c:forEach>
 
