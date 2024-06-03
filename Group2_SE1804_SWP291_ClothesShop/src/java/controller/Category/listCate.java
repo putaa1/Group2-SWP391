@@ -78,7 +78,7 @@ public class listCate extends HttpServlet {
             request.setAttribute("endPage", endPage);
             request.setAttribute("listC", listC);
             request.setAttribute("searchCate", searchCate);
-            request.getRequestDispatcher("category_brand/showCate.jsp").forward(request, response);
+            request.getRequestDispatcher("category_brand/listCate.jsp").forward(request, response);
 
         } else {
             int index1 = Integer.parseInt(indexPage);
@@ -91,7 +91,7 @@ public class listCate extends HttpServlet {
             request.setAttribute("endPage", endPage);
             request.setAttribute("listC", listC);
             request.setAttribute("searchCate", searchCate);
-            request.getRequestDispatcher("category_brand/showCate.jsp").forward(request, response);
+            request.getRequestDispatcher("category_brand/listCate.jsp").forward(request, response);
         }
 
     }
