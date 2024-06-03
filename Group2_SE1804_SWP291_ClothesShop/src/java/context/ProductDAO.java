@@ -4,7 +4,6 @@
  */
 package context;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -14,6 +13,8 @@ import model.Brand;
 import model.Category;
 import model.Gender;
 import model.Product;
+import model.Product_Size;
+import model.Size;
 
 public class ProductDAO extends DBContext {
 
@@ -61,8 +62,8 @@ public class ProductDAO extends DBContext {
 
     public void addProduct(Product product) {
         try {
-            String sql = "INSERT INTO product (name, quantity, price, describe, img, releaseDate, cid, bid, gid, size) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            PreparedStatement stm = connection.prepareStatement(sql);
+            String sql = "INSERT INTO product (name, quantity, price, describe, img, releaseDate, cid, bid, gid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement stm = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             stm.setString(1, product.getName());
             stm.setInt(2, product.getQuantity());
             stm.setDouble(3, product.getPrice());
@@ -72,11 +73,95 @@ public class ProductDAO extends DBContext {
             stm.setInt(7, product.getCategory().getCid());
             stm.setInt(8, product.getBrand().getBid());
             stm.setInt(9, product.getGender().getGid());
-            stm.setString(10, product.getSize());
             stm.executeUpdate();
+
+            ResultSet generatedKeys = stm.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                int productId = generatedKeys.getInt(1);
+                product.setPid(productId); // Ensure product object has the generated ID
+                addProductSizes(productId, product.getSizes());
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void addProductSizes(int productId, List<Size> sizes) throws Exception {
+        for (Size size : sizes) {
+            Product_Size productSize = new Product_Size(size.getSid(), productId);
+            addProductSize(productSize);
+        }
+    }
+
+    public void addProductSize(Product_Size productSize) throws Exception {
+        String sql = "INSERT INTO Product_Size (sid, pid) VALUES (?, ?)";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, productSize.getSid());
+            stmt.setInt(2, productSize.getPid());
+            stmt.executeUpdate();
+        }
+    }
+    public List<Size> getProductSizesById(int pid) {
+        List<Size> sizes = new ArrayList<>();
+        try (
+             PreparedStatement stmt = connection.prepareStatement(""
+                     + "SELECT s.* FROM size s JOIN product_size ps ON s.sid = ps.sid WHERE ps.pid = ?")) {
+            stmt.setInt(1, pid);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Size size = new Size();
+                size.setSid(rs.getInt("sid"));
+                size.setName(rs.getString("name"));
+                sizes.add(size);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return sizes;
+    }
+    private List<Size> getProductSizes(int productId) throws Exception {
+        List<Size> sizes = new ArrayList<>();
+        String sql = "SELECT s.sid, s.name, s.description, s.gid FROM size s INNER JOIN product_size ps ON s.sid = ps.sid WHERE ps.pid = ?";
+        try (PreparedStatement stm = connection.prepareStatement(sql)) {
+            stm.setInt(1, productId);
+            try (ResultSet rs = stm.executeQuery()) {
+                while (rs.next()) {
+                    int sid = rs.getInt("sid");
+                    String name = rs.getString("name");
+                    String description = rs.getString("description");
+                    int genderId = rs.getInt("gid");
+                    Gender gender = getGenderById(genderId);
+                    sizes.add(new Size(sid, name, description, gender));
+                }
+            }
+        }
+        return sizes;
+    }
+
+    public Size getSizeByIdAndGender(int id, String genderDescription) {
+        Size size = null;
+        try {
+            String sql = """
+                    SELECT s.sid, s.name, s.description, g.gid, g.description AS gender_description
+                    FROM size s
+                    JOIN gender g ON s.gid = g.gid
+                    WHERE s.sid = ? AND g.description = ?""";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            stm.setString(2, genderDescription);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                int sid = rs.getInt("sid");
+                String sizeName = rs.getString("name");
+                String sizeDescription = rs.getString("description");
+                int gid = rs.getInt("gid");
+                Gender gender = new Gender(gid, genderDescription);
+                size = new Size(sid, sizeName, sizeDescription, gender);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return size;
     }
 
     public List<Category> getAllCategories() {
@@ -130,6 +215,32 @@ public class ProductDAO extends DBContext {
         return genders;
     }
 
+    public List<Size> getAllSizes() {
+        List<Size> sizes = new ArrayList<>();
+        String query = """
+            SELECT s.sid, s.name, s.description, g.gid, g.description AS gender_description
+            FROM size s
+            LEFT JOIN gender g ON s.gid = g.gid
+        """;
+
+        try ( PreparedStatement stmt = connection.prepareStatement(query);  ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                int sid = rs.getInt("sid");
+                String name = rs.getString("name");
+                String description = rs.getString("description");
+                int genderId = rs.getInt("gid");
+                String genderDescription = rs.getString("gender_description");
+
+                Gender gender = new Gender(genderId, genderDescription);
+                Size size = new Size(sid, name, description, gender);
+                sizes.add(size);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return sizes;
+    }
+
     private Product extractProduct(ResultSet rs) throws Exception {
         int pid = rs.getInt("pid");
         String name = rs.getString("name");
@@ -141,13 +252,13 @@ public class ProductDAO extends DBContext {
         int categoryId = rs.getInt("cid");
         int brandId = rs.getInt("bid");
         int genderId = rs.getInt("gid");
-        String size = rs.getString("size");
 
         Category category = getCategoryById(categoryId);
         Brand brand = getBrandById(brandId);
         Gender gender = getGenderById(genderId);
+        List<Size> sizes = getProductSizes(pid);
 
-        return new Product(pid, name, quantity, price, describe, img, releaseDate, category, brand, gender, size);
+        return new Product(pid, name, quantity, price, describe, img, releaseDate, category, brand, gender, sizes);
     }
 
     // Method to get Category by ID
@@ -283,7 +394,8 @@ public class ProductDAO extends DBContext {
         return 0;
     }
 
-    public ArrayList<Product> paggingWithFilters(String category, String brand, String gender, Double priceFrom, Double priceTo, int pageIndex, int pageSize) {
+    public ArrayList<Product> paggingWithFilters(String category, String brand, String gender, Double priceFrom, Double priceTo, String size, int pageIndex, int pageSize) {
+
         ArrayList<Product> products = new ArrayList<>();
         try {
             StringBuilder sql = new StringBuilder("SELECT * FROM product WHERE 1=1");
@@ -335,7 +447,8 @@ public class ProductDAO extends DBContext {
         return products;
     }
 
-    public int countWithFilters(String category, String brand, String gender, Double priceFrom, Double priceTo) {
+    public int countWithFilters(String category, String brand, String gender, Double priceFrom, Double priceTo, String size) {
+
         try {
             StringBuilder sql = new StringBuilder("SELECT COUNT(*) FROM product WHERE 1=1");
             if (category != null && !category.isEmpty()) {
@@ -382,7 +495,8 @@ public class ProductDAO extends DBContext {
         return 0;
     }
 
-    public ArrayList<Product> searchByNameAndFilters(String search, String category, String brand, String gender, Double priceFrom, Double priceTo, int pageIndex, int pageSize) {
+    public ArrayList<Product> searchByNameAndFilters(String search, String category, String brand, String gender, Double priceFrom, Double priceTo, String size, int pageIndex, int pageSize) {
+
         ArrayList<Product> products = new ArrayList<>();
         try {
             StringBuilder sql = new StringBuilder("SELECT * FROM product WHERE name LIKE ?");
@@ -435,7 +549,8 @@ public class ProductDAO extends DBContext {
         return products;
     }
 
-    public int countSearchResultsWithFilters(String search, String category, String brand, String gender, Double priceFrom, Double priceTo) {
+    public int countSearchResultsWithFilters(String search, String category, String brand, String gender, Double priceFrom, Double priceTo, String size) {
+
         try {
             StringBuilder sql = new StringBuilder("SELECT COUNT(*) FROM product WHERE name LIKE ?");
             if (category != null && !category.isEmpty()) {
@@ -482,4 +597,25 @@ public class ProductDAO extends DBContext {
         }
         return 0;
     }
+
+    public Size getSizeById(int id) {
+        Size size = null;
+        try {
+            String sql = "SELECT * FROM size WHERE sid = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                String name = rs.getString("name");
+                String description = rs.getString("description");
+                int genderId = rs.getInt("gid");
+                Gender gender = getGenderById(genderId);
+                size = new Size(id, name, description, gender);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return size;
+    }
+
 }

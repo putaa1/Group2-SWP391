@@ -11,6 +11,7 @@ import model.Product;
 import model.Category;
 import model.Brand;
 import model.Gender;
+import model.Size;
 import context.ProductDAO;
 
 public class listproduct extends HttpServlet {
@@ -31,6 +32,7 @@ public class listproduct extends HttpServlet {
         String gender = request.getParameter("gender");
         String priceFromStr = request.getParameter("priceFrom");
         String priceToStr = request.getParameter("priceTo");
+        String size = request.getParameter("size");
 
         Double priceFrom = priceFromStr != null && !priceFromStr.trim().isEmpty() ? Double.parseDouble(priceFromStr) : null;
         Double priceTo = priceToStr != null && !priceToStr.trim().isEmpty() ? Double.parseDouble(priceToStr) : null;
@@ -40,19 +42,20 @@ public class listproduct extends HttpServlet {
         int totalProducts;
 
         if (search != null && !search.trim().isEmpty()) {
-            products = productDAO.searchByNameAndFilters(search, category, brand, gender, priceFrom, priceTo, pageIndex, pageSize);
-            totalProducts = productDAO.countSearchResultsWithFilters(search, category, brand, gender, priceFrom, priceTo);
+            products = productDAO.searchByNameAndFilters(search, category, brand, gender, priceFrom, priceTo, size, pageIndex, pageSize);
+            totalProducts = productDAO.countSearchResultsWithFilters(search, category, brand, gender, priceFrom, priceTo, size);
         } else {
-            products = productDAO.paggingWithFilters(category, brand, gender, priceFrom, priceTo, pageIndex, pageSize);
-            totalProducts = productDAO.countWithFilters(category, brand, gender, priceFrom, priceTo);
+            products = productDAO.paggingWithFilters(category, brand, gender, priceFrom, priceTo, size, pageIndex, pageSize);
+            totalProducts = productDAO.countWithFilters(category, brand, gender, priceFrom, priceTo, size);
         }
 
         int totalPages = (int) Math.ceil((double) totalProducts / pageSize);
 
-        // Fetch categories, brands, and genders
+        // Fetch categories, brands, genders, and sizes
         List<Category> categories = productDAO.getAllCategories();
         List<Brand> brands = productDAO.getAllBrands();
         List<Gender> genders = productDAO.getAllGenders();
+        List<Size> sizes = productDAO.getAllSizes();
 
         // Calculate the maximum price
         double maxPrice = products.stream().mapToDouble(Product::getPrice).max().orElse(0.0);
@@ -62,6 +65,7 @@ public class listproduct extends HttpServlet {
         request.setAttribute("categories", categories);
         request.setAttribute("brands", brands);
         request.setAttribute("genders", genders);
+        request.setAttribute("sizes", sizes);
         request.setAttribute("pageIndex", pageIndex);
         request.setAttribute("totalPages", totalPages);
         request.setAttribute("search", search);
@@ -70,6 +74,7 @@ public class listproduct extends HttpServlet {
         request.setAttribute("gender", gender);
         request.setAttribute("priceFrom", priceFromStr);
         request.setAttribute("priceTo", priceToStr);
+        request.setAttribute("size", size);
         request.setAttribute("maxPrice", maxPrice); // Pass the maxPrice to the JSP
 
         request.getRequestDispatcher("product/productList1.jsp").forward(request, response);
