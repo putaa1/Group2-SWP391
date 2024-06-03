@@ -250,12 +250,8 @@
 											</li>
 			                            </ul>
 									</li>
-									<li><a href="blog.html">blog <i class="fa fa-angle-down"></i></a>
-										<ul class="submenu-item">
-											<li><a href="blog.html">Blog</a></li>
-											<li><a href="blog-grid.html">Blog Grid</a></li>
-											<li><a href="single.html">Blog Single</a></li>
-										</ul>
+									<li><a href="newsList">NEWS <i></i></a>
+										
 									</li>
 									<li><a href="contact.html">Contact</a></li>
 								</ul>
@@ -461,15 +457,7 @@
                                                 </form>
 					</div>
 					<!-- Single -->
-					<div class="sidebar-widgets">
-						<h4 class="title">Recent Post</h4>
-						<ul>
-							<li><a href="#">Gallery Post with Supported Animation</a></li>
-							<li><a href="#">Announcement ? Standard Post without Image</a></li>
-							<li><a href="#">We?re the best Designers from UK</a></li>
-							<li><a href="#">A Beautiful Day ? Standard Post with Image</a></li>
-						</ul>
-					</div>
+					
 		
 					
 					<!-- Single -->
