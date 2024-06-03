@@ -72,7 +72,7 @@ public class listproduct extends HttpServlet {
         request.setAttribute("priceTo", priceToStr);
         request.setAttribute("maxPrice", maxPrice); // Pass the maxPrice to the JSP
 
-        request.getRequestDispatcher("product/productList.jsp").forward(request, response);
+        request.getRequestDispatcher("product/productList1.jsp").forward(request, response);
     }
 
     @Override
