@@ -1,4 +1,10 @@
 <%-- 
+    Document   : listBrand
+    Created on : Jun 3, 2024, 11:18:25 PM
+    Author     : chien
+--%>
+
+<%-- 
     Document   : listCate
     Created on : Jun 3, 2024, 9:17:58 PM
     Author     : chien
@@ -438,6 +444,7 @@
                                     </div>
                                 </div>
 
+
                                 <!-- Single -->
 
                             </div>
@@ -484,14 +491,14 @@
                             <div class="col-lg- col-md-6 order-2 order-md-1">
                                 <div class="sidebar-widgets">
                                     <%
-        String searchCate = request.getParameter("searchCate");
-        if (searchCate == null || searchCate.isEmpty()) {
-            searchCate = "Enter search key here";
+        String searchBrand = request.getParameter("searchBrand");
+        if (searchBrand == null || searchBrand.isEmpty()) {
+            searchBrand = "Enter search key here";
         }
                                     %>
                                     <!-- Search single -->
-                                    <form action="listCate">
-                                        <input type="search" name="searchCate" placeholder="<%= searchCate %>">
+                                    <form action="listBrand">
+                                        <input type="search" name="searchBrand" placeholder="<%= searchBrand %>">
                                         <button type="submit"><i class="fas fa-search"></i></button>
                                     </form>
                                 </div>
@@ -524,8 +531,8 @@
 
                             <div style="margin-left: 10px; margin-right: 100px">
                                 <div style="text-align: start">
-                                    <a href="addCate">
-                                        <button class="btn btn-success btn-sm" type="button" data-toggle="tooltip" data-placement="top" title="Edit">Add Category</button>
+                                    <a href="addBrand">
+                                        <button class="btn btn-success btn-sm" type="button" data-toggle="tooltip" data-placement="top" title="Edit">Add Brand</button>
                                     </a>
                                 </div>
                                 <table class="table table-striped table-bordered table-title" cellspacing="0" rules="all" border="1" id="gvLO"
@@ -533,20 +540,20 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">ID</th>
-                                            <th scope="col">Category Name</th>
+                                            <th scope="col">Brand Name</th>
 
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <c:forEach items="${requestScope.listC}" var="c">
+                                        <c:forEach items="${requestScope.listB}" var="b">
                                             <tr>
-                                                <td>${c.cid}</td>
-                                                <td>${c.name}</td>
+                                                <td>${b.bid}</td>
+                                                <td>${b.name}</td>
 
 
                                                 <td><li class="list-inline-item">
-                                            <a href="deleteCate?cid=${c.cid}" onclick="return checkdelete()"><button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button></a>
+                                            <a href="deleteBrand?bid=${b.bid}" onclick="return checkdelete()"><button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button></a>
                                         </li>
                                         <li class="list-inline-item">
                                             <a href="updateCate?cidUpdate=${c.cid}"><button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button></a>
@@ -571,7 +578,7 @@
                                             <c:forEach begin="1" end="${requestScope.endPage}" var="i">
                                                 <li>
 
-                                                    <a class="${i == currentIndex ? 'active' : ''}" href="listCate?index=${i}&searchCate=${param.searchCate}">${i}</a>
+                                                    <a class="${i == currentIndex ? 'active' : ''}" href="listBrand?index=${i}&searchBrand=${param.searchBrand}">${i}</a>
 
 
                                                 </li>

@@ -56,6 +56,14 @@
         <servlet-name>guestHome</servlet-name>
         <servlet-class>controller.Home.guestHome</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>listBrand</servlet-name>
+        <servlet-class>controller.Brand.listBrand</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>deleteBrand</servlet-name>
+        <servlet-class>controller.Brand.deleteBrand</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>newsList</servlet-name>
         <url-pattern>/newsList</url-pattern>
@@ -107,6 +115,14 @@
     <servlet-mapping>
         <servlet-name>guestHome</servlet-name>
         <url-pattern>/guest</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>listBrand</servlet-name>
+        <url-pattern>/listBrand</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>deleteBrand</servlet-name>
+        <url-pattern>/deleteBrand</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
