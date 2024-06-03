@@ -48,6 +48,14 @@
         <servlet-name>VerifyEmail</servlet-name>
         <servlet-class>controller.User.VerifyEmail</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>admin</servlet-name>
+        <servlet-class>controller.Home.adminHome</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>guestHome</servlet-name>
+        <servlet-class>controller.Home.guestHome</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>newsList</servlet-name>
         <url-pattern>/newsList</url-pattern>
@@ -91,6 +99,14 @@
     <servlet-mapping>
         <servlet-name>VerifyEmail</servlet-name>
         <url-pattern>/VerifyEmail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>admin</servlet-name>
+        <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>guestHome</servlet-name>
+        <url-pattern>/guest</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
