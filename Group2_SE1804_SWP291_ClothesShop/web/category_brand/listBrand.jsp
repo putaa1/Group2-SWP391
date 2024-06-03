@@ -1,4 +1,18 @@
+<%-- 
+    Document   : listBrand
+    Created on : Jun 3, 2024, 11:18:25 PM
+    Author     : chien
+--%>
+
+<%-- 
+    Document   : listCate
+    Created on : Jun 3, 2024, 9:17:58 PM
+    Author     : chien
+--%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html  class="no-js" lang="en">
     <head>
@@ -397,7 +411,7 @@
                                 <div class="widgets-latest-product-single mb-30">
 
                                     <div class="content">
-                                        <h4><a href="listCate">Category</a></h4>
+                                        <h4><a class="active" href="listCate">Category</a></h4>
 
                                     </div>
                                 </div>
@@ -419,6 +433,13 @@
 
                                     <div class="content">
                                         <h4><a href="#">Cart</a></h4>
+
+                                    </div>
+                                </div>
+                                <div class="widgets-latest-product-single mb-30">
+
+                                    <div class="content">
+                                        <h4><a href="listBrand">Brand</a></h4>
 
                                     </div>
                                 </div>
@@ -469,9 +490,15 @@
                         <div class="row section-bg pt-20 pb-20 mb-30">
                             <div class="col-lg- col-md-6 order-2 order-md-1">
                                 <div class="sidebar-widgets">
-
-                                    <form action="#">
-                                        <input type="search" name="search" placeholder="Search Here..">
+                                    <%
+        String searchBrand = request.getParameter("searchBrand");
+        if (searchBrand == null || searchBrand.isEmpty()) {
+            searchBrand = "Enter search key here";
+        }
+                                    %>
+                                    <!-- Search single -->
+                                    <form action="listBrand">
+                                        <input type="search" name="searchBrand" placeholder="<%= searchBrand %>">
                                         <button type="submit"><i class="fas fa-search"></i></button>
                                     </form>
                                 </div>
@@ -480,10 +507,10 @@
                             <div class="col-lg-5 col-md-6 order-1 order-md-2 sidebar-widgets">
                                 <div class="top-bar-right">
                                     <select class="form-select" aria-label="Default select example">
-                                        <option selected>Sort by popularity</option>
+
                                         <option value="1">Sort by Name</option>
-                                        <option value="2">Sort by Price</option>
-                                        <option value="3">Sort by Ratting</option>
+                                        <option value="2">Sort by Cid</option>
+
                                     </select>
                                 </div>
                                 <div class="top-bar-right">
@@ -499,211 +526,76 @@
                         </div>
                         <!-- Shop -->
                         <div class="row">
-                            <!-- Product Single -->
-                            <div class="col-lg-4 col-md-4 col-sm-6 mb-30">
-                                <div class="product-single">
-                                    <div class="product-thumbnail">
-                                        <a href="product-details.html"><img src="assets/img/product/1.jpg" alt="product"></a>
-                                        <div class="product-thumbnail-overly">
-                                            <ul>
-                                                <li><a href="cart.html"><i class="fas fa-shopping-cart"></i></a></li>
-                                                <li><a href="wishlist.html"><i class="far fa-heart"></i></a></li>
-                                                <li><a href="#"><i class="far fa-eye"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <h4><a href="product-details.html">Funda Para Ebook 7" 128GB full HD</a></h4>
-                                        <div class="pricing">
-                                            <span>$200 <del>$210</del></span>
-                                        </div>
+
+                            <!-- List Category -->
+
+                            <div style="margin-left: 10px; margin-right: 100px">
+                                <div style="text-align: start">
+                                    <a href="addBrand">
+                                        <button class="btn btn-success btn-sm" type="button" data-toggle="tooltip" data-placement="top" title="Edit">Add Brand</button>
+                                    </a>
+                                </div>
+                                <table class="table table-striped table-bordered table-title" cellspacing="0" rules="all" border="1" id="gvLO"
+                                       style="border-collapse:collapse;">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Brand Name</th>
+
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <c:forEach items="${requestScope.listB}" var="b">
+                                            <tr>
+                                                <td>${b.bid}</td>
+                                                <td>${b.name}</td>
+
+
+                                                <td><li class="list-inline-item">
+                                            <a href="deleteBrand?bid=${b.bid}" onclick="return checkdelete()"><button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button></a>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <a href="updateCate?cidUpdate=${c.cid}"><button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button></a>
+                                        </li>
+                                        </td>
+                                        </tr>
+                                    </c:forEach>
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                            <!-- End List Cate -->
+
+                            <!-- Pagging Start -->
+                            <div class="row">
+                                <div class="col-12 mb-30">
+                                    <div class="page-pagination text-center">
+
+                                        <ul>
+                                            <c:set var="currentIndex" value="${param.index != null ? param.index : 1}" />
+                                            <c:forEach begin="1" end="${requestScope.endPage}" var="i">
+                                                <li>
+
+                                                    <a class="${i == currentIndex ? 'active' : ''}" href="listBrand?index=${i}&searchBrand=${param.searchBrand}">${i}</a>
+
+
+                                                </li>
+                                            </c:forEach>
+
+
+                                        </ul>
+
                                     </div>
                                 </div>
                             </div>
-                            <!-- Product Single -->
-                            <div class="col-lg-4 col-md-4 col-sm-6 mb-30">
-                                <div class="product-single">
-                                    <div class="product-thumbnail">
-                                        <a href="product-details.html"><img src="assets/img/product/8.jpg" alt="product"></a>
-                                        <div class="product-thumbnail-overly">
-                                            <ul>
-                                                <li><a href="cart.html"><i class="fas fa-shopping-cart"></i></a></li>
-                                                <li><a href="wishlist.html"><i class="far fa-heart"></i></a></li>
-                                                <li><a href="#"><i class="far fa-eye"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <h4><a href="product-details.html">Funda Para Ebook 7" 128GB full HD</a></h4>
-                                        <div class="pricing">
-                                            <span>$200 <del>$210</del></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Product Single -->
-                            <div class="col-lg-4 col-md-4 col-sm-6 mb-30">
-                                <div class="product-single">
-                                    <div class="product-thumbnail">
-                                        <a href="product-details.html"><img src="assets/img/product/2.jpg" alt="product"></a>
-                                        <div class="product-thumbnail-overly">
-                                            <ul>
-                                                <li><a href="cart.html"><i class="fas fa-shopping-cart"></i></a></li>
-                                                <li><a href="wishlist.html"><i class="far fa-heart"></i></a></li>
-                                                <li><a href="#"><i class="far fa-eye"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <h4><a href="product-details.html">Funda Para Ebook 7" 128GB full HD</a></h4>
-                                        <div class="pricing">
-                                            <span>$200 <del>$210</del></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Product Single -->
-                            <div class="col-lg-4 col-md-4 col-sm-6 mb-30">
-                                <div class="product-single">
-                                    <div class="product-thumbnail">
-                                        <a href="product-details.html"><img src="assets/img/product/4.jpg" alt="product"></a>
-                                        <div class="product-thumbnail-overly">
-                                            <ul>
-                                                <li><a href="cart.html"><i class="fas fa-shopping-cart"></i></a></li>
-                                                <li><a href="wishlist.html"><i class="far fa-heart"></i></a></li>
-                                                <li><a href="#"><i class="far fa-eye"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <h4><a href="product-details.html">Funda Para Ebook 7" 128GB full HD</a></h4>
-                                        <div class="pricing">
-                                            <span>$200 <del>$210</del></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Product Single -->
-                            <div class="col-lg-4 col-md-4 col-sm-6 mb-30">
-                                <div class="product-single">
-                                    <div class="product-thumbnail">
-                                        <a href="product-details.html"><img src="assets/img/product/5.jpg" alt="product"></a>
-                                        <div class="product-thumbnail-overly">
-                                            <ul>
-                                                <li><a href="cart.html"><i class="fas fa-shopping-cart"></i></a></li>
-                                                <li><a href="wishlist.html"><i class="far fa-heart"></i></a></li>
-                                                <li><a href="#"><i class="far fa-eye"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <h4><a href="product-details.html">Funda Para Ebook 7" 128GB full HD</a></h4>
-                                        <div class="pricing">
-                                            <span>$200 <del>$210</del></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Product Single -->
-                            <div class="col-lg-4 col-md-4 col-sm-6 mb-30">
-                                <div class="product-single">
-                                    <div class="product-thumbnail">
-                                        <a href="product-details.html"><img src="assets/img/product/6.jpg" alt="product"></a>
-                                        <div class="product-thumbnail-overly">
-                                            <ul>
-                                                <li><a href="cart.html"><i class="fas fa-shopping-cart"></i></a></li>
-                                                <li><a href="wishlist.html"><i class="far fa-heart"></i></a></li>
-                                                <li><a href="#"><i class="far fa-eye"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <h4><a href="product-details.html">Funda Para Ebook 7" 128GB full HD</a></h4>
-                                        <div class="pricing">
-                                            <span>$200 <del>$210</del></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Product Single -->
-                            <div class="col-lg-4 col-md-4 col-sm-6 mb-30">
-                                <div class="product-single">
-                                    <div class="product-thumbnail">
-                                        <a href="product-details.html"><img src="assets/img/product/7.jpg" alt="product"></a>
-                                        <div class="product-thumbnail-overly">
-                                            <ul>
-                                                <li><a href="cart.html"><i class="fas fa-shopping-cart"></i></a></li>
-                                                <li><a href="wishlist.html"><i class="far fa-heart"></i></a></li>
-                                                <li><a href="#"><i class="far fa-eye"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <h4><a href="product-details.html">Funda Para Ebook 7" 128GB full HD</a></h4>
-                                        <div class="pricing">
-                                            <span>$200 <del>$210</del></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Product Single -->
-                            <div class="col-lg-4 col-md-4 col-sm-6 mb-30">
-                                <div class="product-single">
-                                    <div class="product-thumbnail">
-                                        <a href="product-details.html"><img src="assets/img/product/8.jpg" alt="product"></a>
-                                        <div class="product-thumbnail-overly">
-                                            <ul>
-                                                <li><a href="cart.html"><i class="fas fa-shopping-cart"></i></a></li>
-                                                <li><a href="wishlist.html"><i class="far fa-heart"></i></a></li>
-                                                <li><a href="#"><i class="far fa-eye"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <h4><a href="product-details.html">Funda Para Ebook 7" 128GB full HD</a></h4>
-                                        <div class="pricing">
-                                            <span>$200 <del>$210</del></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Product Single -->
-                            <div class="col-lg-4 col-md-4 col-sm-6 mb-30">
-                                <div class="product-single">
-                                    <div class="product-thumbnail">
-                                        <a href="product-details.html"><img src="assets/img/product/9.jpg" alt="product"></a>
-                                        <div class="product-thumbnail-overly">
-                                            <ul>
-                                                <li><a href="cart.html"><i class="fas fa-shopping-cart"></i></a></li>
-                                                <li><a href="wishlist.html"><i class="far fa-heart"></i></a></li>
-                                                <li><a href="#"><i class="far fa-eye"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <h4><a href="product-details.html">Funda Para Ebook 7" 128GB full HD</a></h4>
-                                        <div class="pricing">
-                                            <span>$200 <del>$210</del></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <!-- Pagging End -->
+
+
                         </div>
                         <!-- Pagination -->
-                        <div class="row">
-                            <div class="col-12 mb-30">
-                                <div class="page-pagination text-center">
-                                    <ul>
-                                        <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
-                                        <li><a href="#">1</a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><span>3</span></li>
-                                        <li><a href="#">4</a></li>
-                                        <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -808,5 +700,10 @@
         <script src="assets/js/wow.min.js"></script>
         <script src="assets/js/script.js"></script>
         <script src="assets/js/mobile-menu.js"></script>
+        <script>
+                                                function checkdelete() {
+                                                    return confirm("Deleting a category means deleting all products in this category. Are you sure want to delete?");
+                                                }
+        </script>
     </body>
 </html>
