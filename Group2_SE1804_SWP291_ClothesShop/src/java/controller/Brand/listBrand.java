@@ -3,9 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller.Category;
+package controller.Brand;
 
-import context.CategoryDAO;
+import context.BrandDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,13 +13,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
-import model.Category;
+import model.Brand;
+
 
 /**
  *
  * @author chien
  */
-public class searchCate extends HttpServlet {
+public class listBrand extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -36,10 +37,10 @@ public class searchCate extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet searchCate</title>");  
+            out.println("<title>Servlet listBrand</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet searchCate at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet listBrand at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -56,29 +57,42 @@ public class searchCate extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        CategoryDAO cd = new CategoryDAO();
-        String searchCate = request.getParameter("searchCate");
+         BrandDAO cd = new BrandDAO();
+
         String indexPage = request.getParameter("index");
+        String searchBrand = request.getParameter("searchBrand");
+
         if (indexPage == null) {
             indexPage = "1";
         }
-        
-        if(searchCate==null){
-            response.sendRedirect("listCate?index="+indexPage);
-        }else{
-             int index1 = Integer.parseInt(indexPage);
-        int count = cd.count();
-        int endPage = count / 5;
-        if (count % 5 != 0) {
-            endPage++;
+
+        if (searchBrand == null) {
+            int index1 = Integer.parseInt(indexPage);
+            int count = cd.count();
+            int endPage = count / 5;
+            if (count % 5 != 0) {
+                endPage++;
+            }
+            List<Brand> listB = cd.pagging(index1);
+            request.setAttribute("endPage", endPage);
+            request.setAttribute("listB", listB);
+            request.setAttribute("searchCate", searchBrand);
+            request.getRequestDispatcher("category_brand/listBrand.jsp").forward(request, response);
+
+        } else {
+            int index1 = Integer.parseInt(indexPage);
+            int count = cd.count2(searchBrand);
+            int endPage = count / 5;
+            if (count % 5 != 0) {
+                endPage++;
+            }
+            List<Brand> listB = cd.search(searchBrand, index1);
+            request.setAttribute("endPage", endPage);
+            request.setAttribute("listB", listB);
+            request.setAttribute("searchCate", searchBrand);
+            request.getRequestDispatcher("category_brand/listBrand.jsp").forward(request, response);
         }
-        List<Category> listC = cd.search(searchCate, index1);
-        request.setAttribute("endPage", endPage);
-        request.setAttribute("listC", listC);
-        request.setAttribute("searchCate", searchCate);
-        request.getRequestDispatcher("category_brand/showCate.jsp").forward(request, response);
-        }
-       
+
     } 
 
     /** 

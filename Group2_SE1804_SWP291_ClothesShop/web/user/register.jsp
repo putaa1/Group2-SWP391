@@ -1,19 +1,18 @@
 <%-- 
-    Document   : newsList
-    Created on : 25/05/2024, 4:26:04 PM
-    Author     : ADMIN
+    Document   : register
+    Created on : May 26, 2024, 9:41:15 AM
+    Author     : Putaa
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
 <!DOCTYPE html>
 <html  class="no-js" lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>BulkShop - Electronics Shop HTML Template | Blog Details</title>
+	<title>BulkShop - Electronics Shop HTML Template | Register</title>
 	<link rel="icon" href="assets/img/icon.png" type="image/gif" sizes="16x16">
 	<link rel="icon" href="assets/img/icon.png" type="image/gif" sizes="18x18">
 	<link rel="icon" href="assets/img/icon.png" type="image/gif" sizes="20x20">
@@ -251,8 +250,12 @@
 											</li>
 			                            </ul>
 									</li>
-									<li><a href="newsList">NEWS <i ></i></a>
-										
+									<li><a href="blog.html">blog <i class="fa fa-angle-down"></i></a>
+										<ul class="submenu-item">
+											<li><a href="blog.html">Blog</a></li>
+											<li><a href="blog-grid.html">Blog Grid</a></li>
+											<li><a href="single.html">Blog Single</a></li>
+										</ul>
 									</li>
 									<li><a href="contact.html">Contact</a></li>
 								</ul>
@@ -381,10 +384,10 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="breadcrumb-content">
-						<h2>Blog Details</h2>
+						<h2>Register</h2>
 						<ul>
 							<li><a href="index.html">Home</a></li>
-							<li class="active">Blog Details</li>
+							<li class="active">Register</li>
 						</ul>
 					</div>
 				</div>
@@ -393,48 +396,29 @@
 	</div>
 	<!-- End BreadCrumb Area -->
 
-	<!-- Start Blog Area -->
-	<section class="blog-area pt-70 pb-70">
+	<!-- Start Login Register Form -->
+	<div class="login-register-form pt-70 pb-70">
 		<div class="container">
 			<div class="row">
-				<!-- Blog -->
-				<div class="col-lg-8">
-					<div class="blog-details">
-						<div class="blog-item">
-							<div class="thumnail">
-								<img src="assets/img/blog/2.jpg" alt="blog">
-							</div>
-							<div class="content">
-								<ul class="auth">
-									<li><a href="#">by ${news.authorName}</a></li>
-									<li><a href="#">${news.updateDate}</a></li>
-								</ul>
-								<h2>${news.title}</h2>
-                                                                ${news.body}
-							</div>
-						</div>
-						
-						
+				<div class="col-lg-6 offset-lg-3">
+					<div class="login-register-form-full">
+						<h3>Register</h3>
+						<form action="#">
+							<input type="text" class="form-control" name="fname" placeholder="First Name">
+							<input type="text" class="form-control" name="lname" placeholder="Last Name">
+							<input type="email" class="form-control" name="email" placeholder="Your Email">
+							<input type="password" class="form-control" name="pass" placeholder="Your Password">
+							<input type="password" class="form-control" name="cpass" placeholder="Confirm Password">
+							<button class="button-1" type="submit">Sign Up</button>
+						</form>
+						<p>Allready Have an Account? Please <a href="login.html">Login now</a></p>
 					</div>
-				</div>
-				<!-- Siderbar -->
-				<div class="col-lg-4">
-					<!-- Single -->
-					
-					<!-- Single -->
-					
-					<!-- Single -->
-				
-					<!-- Single -->
-					
-					<!-- Single -->
-					
 				</div>
 			</div>
 		</div>
-	</section>
-	<!-- End Blog Area -->
-	
+	</div>
+	<!-- End Login Register Form -->
+
 	<!-- Start Footer Area -->
 	<footer class="footer">
 		<!-- Footer Top -->
@@ -496,7 +480,7 @@
 				<div class="row">
 					<div class="col-md-6">
 						<div class="copyright-text">
-							<p> &copy; Copyright 2021 <a href="https://codepopular.com" target="_blank">CodePopular</a> All Rights Reserved. </p>
+						   <p> &copy; Copyright 2021 <a href="https://codepopular.com" target="_blank">CodePopular</a> All Rights Reserved. </p>
 						</div>
 					</div>
 					<div class="col-md-6">

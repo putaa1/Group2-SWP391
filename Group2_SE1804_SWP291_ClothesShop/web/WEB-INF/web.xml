@@ -32,6 +32,38 @@
         <servlet-name>listproduct</servlet-name>
         <servlet-class>controller.product.listproduct</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Login</servlet-name>
+        <servlet-class>controller.User.Login</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Logout</servlet-name>
+        <servlet-class>controller.User.Logout</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Register</servlet-name>
+        <servlet-class>controller.User.Register</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VerifyEmail</servlet-name>
+        <servlet-class>controller.User.VerifyEmail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>admin</servlet-name>
+        <servlet-class>controller.Home.adminHome</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>guestHome</servlet-name>
+        <servlet-class>controller.Home.guestHome</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>listBrand</servlet-name>
+        <servlet-class>controller.Brand.listBrand</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>deleteBrand</servlet-name>
+        <servlet-class>controller.Brand.deleteBrand</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>newsList</servlet-name>
         <url-pattern>/newsList</url-pattern>
@@ -61,8 +93,36 @@
         <url-pattern>/newsDetail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>listproduct</servlet-name>
-        <url-pattern>/listproduct</url-pattern>
+        <servlet-name>Login</servlet-name>
+        <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Logout</servlet-name>
+        <url-pattern>/Logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Register</servlet-name>
+        <url-pattern>/Register</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VerifyEmail</servlet-name>
+        <url-pattern>/VerifyEmail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>admin</servlet-name>
+        <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>guestHome</servlet-name>
+        <url-pattern>/guest</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>listBrand</servlet-name>
+        <url-pattern>/listBrand</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>deleteBrand</servlet-name>
+        <url-pattern>/deleteBrand</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

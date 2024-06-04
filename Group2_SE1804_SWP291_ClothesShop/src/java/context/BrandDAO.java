@@ -15,6 +15,71 @@ import java.sql.ResultSet;
  */
 public class BrandDAO extends DBContext{
     
+     public ArrayList<Brand> search(String key, int index) {
+        ArrayList<Brand> list = new ArrayList<>();
+        String sql = "SELECT * from brand c where c.name like '%" + key + "%'"
+                + "ORDER BY bid\n"
+                + "OFFSET ? ROWS\n"
+                + "FETCH NEXT 5 ROWS ONLY;";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, (index - 1) * 5);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                list.add(new Brand(rs.getInt(1), rs.getString(2)));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+
+    public ArrayList<Brand> pagging(int index) {
+        ArrayList<Brand> cate = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM brand\n"
+                    + "ORDER BY bid\n"
+                    + "OFFSET ? ROWS\n"
+                    + "FETCH NEXT 5 ROWS ONLY;";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, (index - 1) * 5);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                cate.add(new Brand(rs.getInt(1), rs.getString(2)));
+            }
+        } catch (SQLException e) {
+        }
+        return cate;
+    }
+
+
+    public int count() {
+        try {
+            String sql = "select count (*) from brand";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+        }
+        return 0;
+    }
+        public int count2(String key) {
+        try {
+            String sql = "SELECT count(*) from brand c where c.name like '%" + key + "%'";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+        }
+        return 0;
+    }
+
     public ArrayList<Brand> getAllCate() {
         ArrayList<Brand> listCate = new ArrayList<>();
         String sql = "select * from brand";
@@ -55,7 +120,7 @@ public class BrandDAO extends DBContext{
         }
     }
 
-    public void deleteCate(int bid) {
+    public void deleteBrand(int bid) {
         String sql = "delete from product\n"
                 + "where bid=?\n"
                 + "\n"
@@ -72,12 +137,12 @@ public class BrandDAO extends DBContext{
         }
     }
 
-    public void updateCate(Brand c) {
+    public void updateCate(int bid, String name) {
         String sql = "Update brand set name = ? where bid =? ";
         try {
             PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setString(1, c.getName());
-            stm.setInt(2, c.getBid());
+            stm.setString(1, name);
+            stm.setInt(2, bid);
             stm.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -99,5 +164,5 @@ public class BrandDAO extends DBContext{
         }
         return null;
     }
-    
+
 }
