@@ -27,36 +27,39 @@
                 alert("All fields are required.");
                 return false;
             }
-            
+             let namePattern = /^[a-zA-Z0-9\s]{3,50}$/;
+             if (!namePattern.test(name)) {
+                alert("Name must be 3-50 characters long and contain only letters, numbers, and spaces.");
+                return false;
+            }
             // Quantity and Price validations
-            if (isNaN(quantity) || quantity <= 0) {
-                alert("Quantity must be a positive number.");
+            if (isNaN(quantity) || quantity <= 0 || quantity > 1000) {
+                alert("Quantity must be a positive number and no more than 1000.");
                 return false;
             }
-            if (isNaN(price) || price <= 0) {
-                alert("Price must be a positive number.");
+            if (isNaN(price) || price <= 0 || price > 1000) {
+                alert("Price must be a positive number and no more than $10,00.");
                 return false;
             }
-            
-//            // Image URL validation
-//            let urlPattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
-//                '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|'+ // domain name
-//                '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
-//                '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
-//                '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
-//                '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
-//            if (!urlPattern.test(img)) {
-//                alert("Please enter a valid image URL.");
-//                return false;
-//            }
-            
-            // Date validation
+            if (price < 5) {
+                alert("Price must be at least $5.");
+                return false;
+            }
+            // Image URL validation
+            let imgPattern = /\.(jpg|jpeg|png|gif|webp)$/i;
+            if (!imgPattern.test(img)) {
+                alert("Image URL must end with .jpg, .jpeg, .png, .gif, or .webp.");
+                return false;
+            }
             let today = new Date().toISOString().split('T')[0];
             if (releaseDate > today) {
                 alert("Release date cannot be in the future.");
                 return false;
             }
-            
+            if (size.length === 0) {
+                alert("At least one size must be selected.");
+                return false;
+            }
             return true;
         }
     </script>
@@ -82,7 +85,7 @@
             <hr class="sidebar-divider">
             <div class="sidebar-heading">Interface</div>
             <li class="nav-item">
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link" href="listproduct">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Product Table</span>
                 </a>

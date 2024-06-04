@@ -78,7 +78,7 @@
 
                 <!-- Nav Item - Tables -->
                 <li class="nav-item active">
-                    <a class="nav-link" href="tables.html">
+                    <a class="nav-link" href="listproduct">
                         <i class="fas fa-fw fa-table"></i>
                         <span>Product Table</span></a>
                 </li>
@@ -218,9 +218,8 @@
                                                     <td>${product.brand.name}</td>
                                                     <td>${product.gender.description}</td>
                                                     <td>
-                                                        <c:forEach var="size" items="${product.sizes}">
-                                                            ${size.name}
-                                                            <c:if test="${!loop.last}">,</c:if>
+                                                        <c:forEach var="size" items="${product.sizes}" varStatus="status">
+                                                            ${size.name}<c:if test="${!status.last}">,</c:if>
                                                         </c:forEach>
                                                     </td>
                                                     <td>${product.releaseDate}</td>
