@@ -124,6 +124,10 @@
         <servlet-name>deleteBrand</servlet-name>
         <url-pattern>/deleteBrand</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>listproduct</servlet-name>
+        <url-pattern>/listproduct</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30

@@ -1,14 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
 import java.util.Date;
+import java.util.List;
 
 /**
- *
- * @author KieuTuanPC
+ * Represents a product with various attributes.
  */
 public class Product {
     private int pid; // Product ID
@@ -21,10 +17,10 @@ public class Product {
     private Category category; // Category
     private Brand brand; // Brand
     private Gender gender; // Gender
-    private String size; // Size of Product
+    private List<Size> sizes; // List of Sizes of Product
 
     // Constructor
-    public Product(int pid, String name, int quantity, double price, String describe, String img, Date releaseDate, Category category, Brand brand, Gender gender, String size) {
+    public Product(int pid, String name, int quantity, double price, String describe, String img, Date releaseDate, Category category, Brand brand, Gender gender, List<Size> sizes) {
         this.pid = pid;
         this.name = name;
         this.quantity = quantity;
@@ -35,7 +31,7 @@ public class Product {
         this.category = category;
         this.brand = brand;
         this.gender = gender;
-        this.size = size;
+        this.sizes = sizes;
     }
 
     // Getters and Setters
@@ -119,15 +115,14 @@ public class Product {
         this.gender = gender;
     }
 
-    public String getSize() {
-        return size;
+    public List<Size> getSizes() {
+        return sizes;
     }
 
-    public void setSize(String size) {
-        this.size = size;
+    public void setSizes(List<Size> sizes) {
+        this.sizes = sizes;
     }
 
-    // Override toString() method
     @Override
     public String toString() {
         return "Product{" +
@@ -141,7 +136,7 @@ public class Product {
                 ", category=" + category +
                 ", brand=" + brand +
                 ", gender=" + gender +
-                ", size='" + size + '\'' +
+                ", sizes=" + sizes +
                 '}';
     }
 }
