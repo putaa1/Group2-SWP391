@@ -422,6 +422,13 @@
 
                                     </div>
                                 </div>
+                                <div class="widgets-latest-product-single mb-30">
+
+                                    <div class="content">
+                                        <h4><a href="listBrand">Brand</a></h4>
+
+                                    </div>
+                                </div>
 
 
                                 <!-- Single -->
